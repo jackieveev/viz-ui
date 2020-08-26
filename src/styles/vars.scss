@@ -1,0 +1,28 @@
+body {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+$prefix: viz-;
+
+// colors
+$primary-color: #409EFF !default;
+$dark-color: #242424 !default;
+$white-color: #fff !default;
+$hint-white-color: #e6f5f4 !default;
+$medium-gray-color: #ababab;
+
+// values
+$border-radius: 2px !default;
+$font-size-base: 12px !default;
+$font-size-medium: 14px !default;
+$font-size-large: 18px !default;
+
+// transition
+$base-transition: all .2s cubic-bezier(.645, .045, .355, 1) !default;
+
+
+/***
+  组件
+*/
+// input
+$input-padding: 6px 10px;
