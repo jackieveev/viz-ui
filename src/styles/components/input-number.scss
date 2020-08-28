@@ -1,0 +1,44 @@
+.#{$input-number-class} {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  
+  .#{$input-number-class}__button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 0 $border-radius $border-radius 0;
+    background-color: $dark-color;
+    overflow: hidden;
+    .viz-icon {
+      color: $medium-gray-color;
+      width: $input-number-icon-width;
+      height: 50%;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+      overflow: hidden;
+      font-size: $font-size-base;
+      &:after {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        width: 0;
+        vertical-align: middle;
+      }
+      &:hover {
+        background-color: darken($dark-color, 4);
+        color: $hint-white-color;
+      }
+    }
+  }
+}
+
+&.#{$input-number-class}--padding {
+  box-sizing: border-box;
+  padding-right: $input-number-icon-width;
+  .#{$input-inner-class} {
+    border-radius: $border-radius 0 0 $border-radius;
+  }
+}

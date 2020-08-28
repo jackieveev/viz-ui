@@ -1,3 +1,6 @@
+/***
+  共用
+*/
 body {
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
@@ -5,11 +8,12 @@ body {
 $prefix: viz-;
 
 // colors
-$primary-color: #409EFF !default;
+$primary-color: #4c7fff !default;
 $dark-color: #242424 !default;
 $white-color: #fff !default;
 $hint-white-color: #e6f5f4 !default;
 $medium-gray-color: #ababab;
+$disabled-text-color: #999;
 
 // values
 $border-radius: 2px !default;
@@ -25,4 +29,13 @@ $base-transition: all .2s cubic-bezier(.645, .045, .355, 1) !default;
   组件
 */
 // input
-$input-padding: 6px 10px;
+$input-class: #{$prefix}input;
+$input-padding: 6px 10px !default;
+$input-inner-class: #{$input-class}__input;
+$input-icon-class: #{$input-class}__icon;
+$input-icon-width: 26px !default;
+$input-border-width: 1px !default;
+
+// input-number
+$input-number-class: #{$prefix}input-number;
+$input-number-icon-width: $input-icon-width !default;

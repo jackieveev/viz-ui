@@ -1,16 +1,14 @@
-$input-class: #{$prefix}input;
-$icon-padding: 25px;
-
 .#{$input-class} {
   display: inline-block;
   position: relative;
+  width: 100%;
   
-  .#{$input-class}__input {
+  .#{$input-inner-class} {
     border-radius: $border-radius;
     background-color: $dark-color;
     color: $primary-color;
+    border: 1px solid transparent;
     outline: none;
-    border: none;
     font-size: $font-size-base;
     color: $hint-white-color;
     padding: $input-padding;
@@ -18,24 +16,46 @@ $icon-padding: 25px;
     box-sizing: border-box;
     transition: $base-transition;
     &.with-prefix-icon {
-      padding-left: $icon-padding;
+      padding-left: $input-icon-width;
+    }
+    &.with-suffix-icon {
+      padding-right: $input-icon-width;
+    }
+    &:focus {
+      border-color: $primary-color;
     }
   }
 
-  .#{$input-class}__icon {
+  .#{$input-icon-class} {
     position: absolute;
     color: $medium-gray-color;
-    width: $icon-padding;
+    width: $input-icon-width;
     height: 100%;
-    line-height: 100%;
     top: 0;
     text-align: center;
     font-size: $font-size-medium;
     display: table;
-    transition: $base-transition;
-    &:before {
+    &:after {
+      content: attr(data-text);
+      font-size: $font-size-base;
+    }
+    &:before,
+    &:after {
       display: table-cell;
       vertical-align: middle;
     }
+    &.#{$input-icon-class}--suffix {
+      right: 0;
+    }
+  }
+}
+
+.#{$input-class}--disabled {
+  .#{$input-inner-class} {
+    color: $disabled-text-color;
+    cursor: not-allowed;
+  }
+  .#{$input-icon-class} {
+    color: darken($disabled-text-color, 10);
   }
 }
