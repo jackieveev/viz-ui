@@ -56,6 +56,18 @@ export default {
       displayValue: ''
     }
   },
+  computed: {
+    pow() {
+      return Math.pow(10, this.precise)
+    }
+  },
+  watch: {
+    value(nv) {
+      if (nv !== this.displayValue) {
+        this.displayValue = this.formatValue(nv)
+      }
+    }
+  },
   methods: {
     formatValue(value) {
       let res = parseFloat(value)
@@ -69,22 +81,27 @@ export default {
         res = Math.min(res, this.max)
       }
       // 正负无穷
-      if (Number.isFinite(res)) {
+      if (!Number.isFinite(res)) {
         return res
       }
       if (this.precise === 0) {
-        return 
+        return Math.floor(res)
       }
+      return Math.floor(res * this.pow) / this.pow
+    },
+    changeValue() {
+      this.displayValue = this.formatValue(this.displayValue)
+      this.$emit('input', this.displayValue)
     },
     handleChangeValue(factor) {
     },
     // 在blur时验证用户输入
     handleBlur() {
-      this.displayValue = this.formatValue(this.displayValue)
+      
     }
   },
   created() {
-    this.displayValue = this.formatValue(this.value)
+    this.changeValue()
   }
 }
 </script>

@@ -16,8 +16,10 @@
               style="width: 300px">
     </viz-input>
     <br/><br/>
-    <viz-input-number prefix="￥"
-                      v-model="test1">
+    <viz-input-number style="width: 300px"
+                      prefix="￥"
+                      v-model="test1"
+                      :precise="3">
     </viz-input-number>
   </div>
 </template>
