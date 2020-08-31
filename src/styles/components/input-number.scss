@@ -1,9 +1,11 @@
+$button-class: #{$input-number-class}__button;
+
 .#{$input-number-class} {
   position: relative;
   display: inline-block;
   width: 120px;
   
-  .#{$input-number-class}__button {
+  .#{$button-class} {
     position: absolute;
     right: 0;
     top: 0;
@@ -17,9 +19,9 @@
       height: 50%;
       display: block;
       text-align: center;
-      cursor: pointer;
       overflow: hidden;
       font-size: $font-size-base;
+      cursor: not-allowed;
       &:after {
         content: '';
         display: inline-block;
@@ -27,9 +29,15 @@
         width: 0;
         vertical-align: middle;
       }
-      &:hover {
-        background-color: darken($dark-color, 4);
-        color: $hint-white-color;
+    }
+    &:not(.#{$button-class}--disabled) {
+      .viz-icon {
+        cursor: auto;
+        &:hover {
+          background-color: darken($dark-color, 4);
+          color: $hint-white-color;
+          cursor: pointer;
+        }
       }
     }
   }

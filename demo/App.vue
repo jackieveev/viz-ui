@@ -19,6 +19,9 @@
     <viz-input-number style="width: 300px"
                       prefix="￥"
                       v-model="test1"
+                      :step="10"
+                      :min="0"
+                      placeholder="请输入"
                       :precise="3">
     </viz-input-number>
   </div>
@@ -39,6 +42,11 @@ export default {
     handleEnter(ev) {
       console.log('keypress: ', ev)
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.test1 += 1.23213123213
+    }, 3000)
   }
 }
 </script>

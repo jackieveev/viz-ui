@@ -7,12 +7,20 @@
         ]">
     <viz-input v-model="displayValue"
               @blur="handleBlur"
+              :disabled="disabled"
               v-bind="$attrs"
               v-on="$listeners">
     </viz-input>
-    <div v-if="showButton" :class="[buttonClass]">
-      <i class="viz-icon arrowup" @click="handleChangeValue(1)"></i>
-      <i class="viz-icon arrowdown" @click="handleChangeValue(-1)"></i>
+    <div v-if="showButton"
+        :class="[
+          buttonClass,
+          {
+            [`${buttonClass}--disabled`]: disabled
+          }
+        ]"
+        @mousedown="handleMouseDown">
+      <i class="viz-icon arrowup" :data-increase="1"></i>
+      <i class="viz-icon arrowdown"></i>
     </div>
   </div>
 </template>
@@ -44,6 +52,14 @@ export default {
       validator(value) {
         return Number.isInteger(value) && value >= 0
       }
+    },
+    step: {
+      type: Number,
+      default: 1
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -53,7 +69,9 @@ export default {
     return {
       baseClass: name,
       buttonClass: `${name}__button`,
-      displayValue: ''
+      displayValue: '',
+      previousValue: 0,
+      timer: null
     }
   },
   computed: {
@@ -64,21 +82,21 @@ export default {
   watch: {
     value(nv) {
       if (nv !== this.displayValue) {
-        this.displayValue = this.formatValue(nv)
+        this.changeValue(nv)
       }
     }
   },
   methods: {
     formatValue(value) {
-      let res = parseFloat(value)
+      let res = +value
       if (Number.isNaN(res)) {
-        res = 0
+        res = this.previousValue
       }
       if (this.min !== undefined) {
-        res = Math.max(res, this.min)
+        res = Math.max(value, this.min)
       }
       if (this.max !== undefined) {
-        res = Math.min(res, this.max)
+        res = Math.min(value, this.max)
       }
       // 正负无穷
       if (!Number.isFinite(res)) {
@@ -89,19 +107,52 @@ export default {
       }
       return Math.floor(res * this.pow) / this.pow
     },
-    changeValue() {
-      this.displayValue = this.formatValue(this.displayValue)
-      this.$emit('input', this.displayValue)
+    changeValue(value) {
+      this.displayValue = this.formatValue(value)
+      this.previousValue = this.displayValue
+      if (this.displayValue !== this.value) {
+        this.emitValue()
+      }
     },
-    handleChangeValue(factor) {
+    emitValue() {
+      this.$emit('input', this.displayValue)
+      this.$emit('on-change', this.displayValue)
+    },
+    changeValueByStep(factor) {
+      this.displayValue = this.formatValue(factor * this.step + this.value)
+      this.emitValue()
     },
     // 在blur时验证用户输入
     handleBlur() {
-      
+      this.changeValue(this.displayValue)
+    },
+    stepTimer(factor) {
+      this.changeValueByStep(factor)
+      // 触摸事件300ms，会导致触摸一次加了多个step的距离
+      this.timer = window.setTimeout(() => {
+        this.stepTimer(factor)
+      }, 100)
+    },
+    handleMouseDown(e) {
+      e.preventDefault()
+      if (!this.disabled) {
+        const factor = e.target.dataset.increase ? 1 : -1
+        this.stepTimer(factor)
+      }
+    },
+    handleWindowMouseUp() {
+      window.clearTimeout(this.timer)
     }
   },
   created() {
-    this.changeValue()
+    this.changeValue(this.value)
+  },
+  mounted() {
+    window.addEventListener('mouseup', this.handleWindowMouseUp)
+  },
+  beforeDestroy() {
+    window.clearTimeout(this.timer)
+    window.removeEventListener('mouseup', this.handleWindowMouseUp)
   }
 }
 </script>
