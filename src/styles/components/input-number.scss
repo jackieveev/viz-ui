@@ -1,9 +1,9 @@
-$button-class: #{$input-number-class}__button;
-
 .#{$input-number-class} {
   position: relative;
   display: inline-block;
   width: 120px;
+  
+  $button-class: #{$input-number-class}__button;
   
   .#{$button-class} {
     position: absolute;
@@ -20,7 +20,7 @@ $button-class: #{$input-number-class}__button;
       display: block;
       text-align: center;
       overflow: hidden;
-      font-size: $font-size-base;
+      font-size: $font-size-small;
       cursor: not-allowed;
       &:after {
         content: '';
@@ -34,9 +34,13 @@ $button-class: #{$input-number-class}__button;
       .viz-icon {
         cursor: auto;
         &:hover {
-          background-color: darken($dark-color, 4);
+          background-color: darken($dark-color, 3);
           color: $hint-white-color;
           cursor: pointer;
+        }
+        &:active {
+          background-color: darken($dark-color, 6);
+          color: $hint-white-color;
         }
       }
     }

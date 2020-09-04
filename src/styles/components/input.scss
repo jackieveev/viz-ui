@@ -6,7 +6,6 @@
   .#{$input-inner-class} {
     border-radius: $border-radius;
     background-color: $dark-color;
-    color: $primary-color;
     border: 1px solid transparent;
     outline: none;
     font-size: $font-size-base;
@@ -30,19 +29,13 @@
     position: absolute;
     color: $medium-gray-color;
     width: $input-icon-width;
-    height: 100%;
-    top: 0;
+    top: 50%;
     text-align: center;
-    font-size: $font-size-medium;
-    display: table;
-    &:after {
+    transform: translateY(-50%);
+    font-size: $font-size-base;
+    line-height: 1;
+    &.fixed-text:before {
       content: attr(data-text);
-      font-size: $font-size-base;
-    }
-    &:before,
-    &:after {
-      display: table-cell;
-      vertical-align: middle;
     }
     &.#{$input-icon-class}--suffix {
       right: 0;

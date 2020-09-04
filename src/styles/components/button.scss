@@ -1,0 +1,25 @@
+.#{$button-class} {
+  background-color: $primary-color;
+  color: $white-color;
+  border: none;
+  padding: $button-padding;
+  height: $button-height;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: $base-transition;
+  line-height: $button-height;
+  overflow: hidden;
+  vertical-align: top;
+  outline: none;
+  &:not([disabled]):hover {
+    background-color: lighten($primary-color, 2);
+  }
+  &:active,
+  &:active:hover {
+    background-color: darken($primary-color, 2);
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    background-color: lighten($primary-color, 5);
+  }
+}

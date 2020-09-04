@@ -1,10 +1,3 @@
-/***
-  共用
-*/
-body {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-}
-
 $prefix: viz-;
 
 // colors
@@ -17,9 +10,10 @@ $disabled-text-color: #999;
 
 // values
 $border-radius: 2px !default;
-$font-size-base: 12px !default;
-$font-size-medium: 14px !default;
-$font-size-large: 18px !default;
+$font-size-small: 12px !default;
+$font-size-base: 14px !default;
+$font-size-medium: 16px !default;
+$font-size-large: 20px !default;
 
 // transition
 $base-transition: all .2s cubic-bezier(.645, .045, .355, 1) !default;
@@ -33,9 +27,17 @@ $input-class: #{$prefix}input;
 $input-padding: 6px 10px !default;
 $input-inner-class: #{$input-class}__input;
 $input-icon-class: #{$input-class}__icon;
-$input-icon-width: 26px !default;
+$input-icon-width: $font-size-base * 2 !default;
 $input-border-width: 1px !default;
 
 // input-number
 $input-number-class: #{$prefix}input-number;
 $input-number-icon-width: $input-icon-width !default;
+
+// button
+$button-class: #{$prefix}button;
+$button-height: 28px !default;
+$button-padding: 0 10px !default;
+
+// checkbox
+$checkbox-class: #{$prefix}checkbox;

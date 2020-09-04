@@ -14,7 +14,8 @@ module.exports = merge(base, {
     filename: '[name].bundle.js'
   },
   devServer: {
-    contentBase: '/demo-dist'
+    contentBase: '/demo-dist',
+    compress: true
   },
   plugins: [
     new VueLoaderPlugin(),

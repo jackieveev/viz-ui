@@ -24,6 +24,20 @@
                       placeholder="请输入"
                       :precise="3">
     </viz-input-number>
+    <br/><br/>
+    <viz-button>
+      确定
+    </viz-button>
+    <br/><br/>
+    <viz-checkbox v-model="test4">
+      123
+    </viz-checkbox>
+    <br/><br/>
+    <viz-checkbox-group v-model="test5" >
+      <viz-checkbox :label="1" disabled>苹果</viz-checkbox>
+      <viz-checkbox :label="2">香蕉</viz-checkbox>
+      <viz-checkbox :label="3">西瓜</viz-checkbox>
+    </viz-checkbox-group>
   </div>
 </template>
 
@@ -31,8 +45,10 @@
 export default {
   data() {
     return {
+      test4: {},
       test: 'it\'s gone, it\'s all over baby.',
-      test1: 12345
+      test1: 12345,
+      test5: [1, 3]
     }
   },
   methods: {

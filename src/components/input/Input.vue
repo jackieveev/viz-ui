@@ -29,8 +29,10 @@
 </template>
 
 <script>
+const name = 'viz-input'
+
 export default {
-  name: 'viz-input',
+  name,
   props: {
     value: {
       type: [String, Number]
@@ -39,7 +41,7 @@ export default {
       type: String,
       default: 'text',
       validator(e) {
-        return ['text', 'textarea', 'password'].indexOf(e) != -1
+        return ['text', 'password'].indexOf(e) != -1
       }
     },
     disabled: {
@@ -59,17 +61,18 @@ export default {
       type: String
     }
   },
+  data() {
+    return {
+      baseClass: name
+    }
+  },
   computed: {
-    baseClass () {
-      return `viz-${this.type === 'textarea' ? 'textarea' : 'input'}`
-    },
     iconClass() {
       return `${this.baseClass}__icon`
     }
   },
   methods: {
-    handleInput(e) {
-      const value = e.target.value
+    handleInput({ target: { value } }) {
       this.$emit('input', value)
       this.$emit('on-change', value)
     }
