@@ -1,15 +1,12 @@
 <template>
-  <label :class="[
-            baseClass
-          ]">
-    <input type="checkbox"
+  <label :class="[baseClass]">
+    <input type="radio"
+          :name="radioName"
           :checked="checked"
           :disabled="isDisabled"
           @change="handleChange">
-    <div :class="[
-            displayClass
-          ]">
-      <i class="viz-icon checked" :class="[`${displayClass}__handle`]"></i>
+    <div :class="[displayClass]">
+      <span :class="[`${displayClass}__handle`]"></span>
       <span :class="[`${displayClass}__label`]">
         <slot>{{ label }}</slot>
       </span>
@@ -18,22 +15,20 @@
 </template>
 
 <script>
-const name = 'viz-checkbox'
-
+const name = 'viz-radio'
 export default {
   name,
   props: {
-    value: {},
-    trueValue: {
-      default: true
-    },
-    falseValue: {
-      default: false
+    value: {
+      default: null
     },
     label: {},
     disabled: {
       type: Boolean,
       default: false
+    },
+    name: {
+      type: String
     }
   },
   data() {
@@ -52,12 +47,17 @@ export default {
       }
       return this.disabled
     },
+    radioName() {
+      if (this.isGroup && this.$parent.$props && this.$parent.$props.name !== undefined) {
+        return this.$parent.$props.name
+      }
+      return this.name
+    },
     checked() {
       if (this.isGroup) {
-        return this.$parent.value.indexOf(this.label) !== -1
+        return this.$parent.value === this.label
       }
-      const value = typeof this.trueValue === 'boolean' ? !!this.value : this.value
-      return value === this.trueValue
+      return this.value === this.label
     }
   },
   methods: {
@@ -65,7 +65,7 @@ export default {
       if (this.isGroup) {
         this.$parent.handleToggleItem(this.label)
       } else {
-        const value = target.checked ? this.trueValue : this.falseValue
+        const value = target.checked ? this.label : false
         this.$emit('input', value)
         this.$emit('on-change', value)
       }

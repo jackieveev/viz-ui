@@ -41,3 +41,11 @@ $button-padding: 0 10px !default;
 
 // checkbox
 $checkbox-class: #{$prefix}checkbox;
+$checkbox-aspect: $font-size-base !default;
+
+// radio
+$radio-class: #{$prefix}radio;
+$radio-aspect: $font-size-base - 1px !default;
+
+// tooltip
+$tooltip-class: #{$prefix}tooltip;

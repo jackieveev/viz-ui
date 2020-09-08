@@ -1,61 +1,51 @@
-.#{$checkbox-class} {
-  $display-class: #{$checkbox-class}-display;
+.#{$radio-class} {
+  $display-class: #{$radio-class}-display;
   $handle-class: #{$display-class}__handle;
   $transition: .05s ease-in;
   display: inline-block;
-  margin-right: $checkbox-aspect;
+  margin-right: $radio-aspect;
 
   color: $hint-white-color;
   font-size: $font-size-base;
-  input[type="checkbox"] {
+
+  input[type="radio"] {
     display: none;
     &:checked + .#{$display-class} {
       .#{$handle-class} {
         border-color: $primary-color;
-        &:before {
-          transform: scale(1);
-          background-color: $primary-color;
-        }
+        border-width: floor($radio-aspect / 3);
       }
     }
     &:disabled + .#{$display-class} {
       cursor: not-allowed;
       color: $disabled-text-color;
       .#{$handle-class} {
-        border-color: $dark-color;
         background-color: lighten($dark-color, 4);
-        &:before {
-          background-color: lighten($dark-color, 4);
-        }
+      }
+    }
+    &:checked:disabled + .#{$display-class} {
+      .#{$handle-class} {
+        border-color: $dark-color;
+        background-color: lighten($dark-color, 20)
       }
     }
   }
+
   .#{$display-class} {
     cursor: pointer;
   }
 
   .#{$handle-class} {
     display: inline-block;
+    width: $radio-aspect;
+    height: $radio-aspect;
+    border-radius: 50%;
     vertical-align: middle;
-    width: $checkbox-aspect;
-    height: $checkbox-aspect;
-    border-radius: $border-radius;
+    background-color: $dark-color;
     background-color: lighten($dark-color, 2);
     border: 1px solid $dark-color;
     box-sizing: border-box;
-    font-size: $font-size-base - 2px;
-    line-height: 1;
-    text-align: center;
     transition: $transition;
-    overflow: hidden;
-    &:before {
-      display: block;
-      height: 100%;
-      width: 100%;
-      transform: scale(0);
-      background-color: none;
-      transition: $transition;
-    }
   }
 
   .#{$display-class}__label {

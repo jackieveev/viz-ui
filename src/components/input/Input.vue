@@ -41,7 +41,7 @@ export default {
       type: String,
       default: 'text',
       validator(e) {
-        return ['text', 'password'].indexOf(e) != -1
+        return ['text', 'password'].indexOf(e) !== -1
       }
     },
     disabled: {

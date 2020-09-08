@@ -11,6 +11,7 @@
     <viz-input prefix-icon="arrowup"
               prefix="$"
               v-model="test"
+              maxlength="10"
               suffix-icon="arrowdown"
               suffix=".00"
               style="width: 300px">
@@ -38,6 +39,20 @@
       <viz-checkbox :label="2">香蕉</viz-checkbox>
       <viz-checkbox :label="3">西瓜</viz-checkbox>
     </viz-checkbox-group>
+    <br/><br/>
+    <viz-radio v-model="test6" label="123" disabled>
+      456
+    </viz-radio>
+    <br/><br/>
+    <viz-radio-group v-model="test7">
+      <viz-radio label="八百壮士">八百壮士</viz-radio>
+      <viz-radio label="花木兰">花木兰</viz-radio>
+      <viz-radio label="奇洛李维斯回信" disabled>奇洛李维斯回信</viz-radio>
+    </viz-radio-group>
+    <br/><br/>
+    <viz-tooltip>
+      tooltip
+    </viz-tooltip>
   </div>
 </template>
 
@@ -48,20 +63,21 @@ export default {
       test4: {},
       test: 'it\'s gone, it\'s all over baby.',
       test1: 12345,
-      test5: [1, 3]
+      test5: [1, 3],
+      test6: '123',
+      test7: '奇洛李维斯回信'
     }
   },
   methods: {
     handleChange() {
       console.log(this.test)
     },
-    handleEnter(ev) {
-      console.log('keypress: ', ev)
+    handleEnter(v) {
+      console.log('change to: ', v, this.test7)
     }
   },
   mounted() {
     setTimeout(() => {
-      this.test1 += 1.23213123213
     }, 3000)
   }
 }

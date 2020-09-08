@@ -119,7 +119,8 @@ export default {
       this.$emit('on-change', this.displayValue)
     },
     changeValueByStep(factor) {
-      this.displayValue = this.formatValue(factor * this.step + this.value)
+      // 在某些浏览器中会自动将值转换成string，例如IE11，所以要parseFloat
+      this.displayValue = this.formatValue(factor * this.step + parseFloat(this.value))
       this.emitValue()
     },
     // 在blur时验证用户输入
