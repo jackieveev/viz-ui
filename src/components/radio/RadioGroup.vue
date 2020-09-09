@@ -6,7 +6,7 @@
 
 <script>
 const name = 'viz-radio-group'
-let counter = 0
+let counter = 10000
 
 export default {
   name,

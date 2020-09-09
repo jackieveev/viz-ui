@@ -1,3 +1,43 @@
 .#{$tooltip-class} {
-  
+  background-color: $tooltip-background;
+  color: $hint-white-color;
+  padding: $tooltip-padding;
+  border-radius: $border-radius;
+  box-shadow: 0 0 15px rgba(0, 0, 0, .2);
+  &:after {
+    content: '';
+    position: absolute;
+    border: $tooltip-arrow-height solid transparent;
+    z-index: -1;
+  }
+  @each $p in top, bottom, left, right {
+    // 默认top
+    $op: bottom;
+    $side: left;
+    $op-side: right;
+    $direction: X;
+    @if $p == bottom {
+      $op: top;
+    } @else if $p == left or $p == right {
+      $op: if($p == left, right, left);
+      $side: top;
+      $op-side: bottom;
+      $direction: Y;
+    }
+    &[data-popper-placement^=#{$p}]:after {
+      border-#{$p}: $tooltip-arrow-thickness solid $tooltip-background;
+      border-#{$op}: 0;
+      #{$op}: -$tooltip-arrow-height;
+      #{$side}: 50%;
+      transform: translate+$direction+'('-50%+')';
+    }
+    &[data-popper-placement$=#{$p}-start]:after {
+      #{$side}: $tooltip-arrow-thickness;
+    }
+    &[data-popper-placement$=#{$p}-end]:after {
+      #{$side}: auto;
+      #{$op-side}: -$tooltip-arrow-thickness;
+      transform: translate+$direction+'('+-100%+')';
+    }
+  }
 }

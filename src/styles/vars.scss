@@ -49,3 +49,7 @@ $radio-aspect: $font-size-base - 1px !default;
 
 // tooltip
 $tooltip-class: #{$prefix}tooltip;
+$tooltip-background: $dark-color !default;
+$tooltip-padding: $font-size-base / 3 $font-size-base / 2;
+$tooltip-arrow-thickness: 8px !default;
+$tooltip-arrow-height: $tooltip-arrow-thickness - $tooltip-arrow-thickness / 4

@@ -50,7 +50,7 @@
       <viz-radio label="奇洛李维斯回信" disabled>奇洛李维斯回信</viz-radio>
     </viz-radio-group>
     <br/><br/>
-    <viz-tooltip>
+    <viz-tooltip content="stupid 😂" placement="right-start" v-model="test8">
       tooltip
     </viz-tooltip>
   </div>
@@ -65,7 +65,8 @@ export default {
       test1: 12345,
       test5: [1, 3],
       test6: '123',
-      test7: '奇洛李维斯回信'
+      test7: '奇洛李维斯回信',
+      test8: false
     }
   },
   methods: {
@@ -73,7 +74,7 @@ export default {
       console.log(this.test)
     },
     handleEnter(v) {
-      console.log('change to: ', v, this.test7)
+      console.log('change to: ', v)
     }
   },
   mounted() {
