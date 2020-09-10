@@ -50,9 +50,30 @@
       <viz-radio label="奇洛李维斯回信" disabled>奇洛李维斯回信</viz-radio>
     </viz-radio-group>
     <br/><br/>
-    <viz-tooltip content="stupid 😂" placement="right-start" v-model="test8">
+    <viz-tooltip content="stupid 😂" placement="right-start" v-model="test8" :hover="false">
       tooltip
     </viz-tooltip>
+    <br/><br/><br/>
+    <viz-select>
+      <viz-option value="1" label="蒸羊羔"></viz-option>
+      <viz-option value="2" label="蒸熊掌"></viz-option>
+      <viz-option value="3" label="当红辣子鸡"></viz-option>
+      <viz-option value="1" label="蒸羊羔"></viz-option>
+      <viz-option value="2" label="蒸熊掌"></viz-option>
+      <viz-option value="3" label="当红辣子鸡"></viz-option>
+      <viz-option value="1" label="蒸羊羔"></viz-option>
+      <viz-option value="2" label="蒸熊掌"></viz-option>
+      <viz-option value="3" label="当红辣子鸡"></viz-option>
+      <viz-option value="1" label="蒸羊羔"></viz-option>
+      <viz-option value="2" label="蒸熊掌"></viz-option>
+      <viz-option value="3" label="当红辣子鸡"></viz-option>
+      <viz-option value="1" label="蒸羊羔"></viz-option>
+      <viz-option value="2" label="蒸熊掌"></viz-option>
+      <viz-option value="3" label="当红辣子鸡"></viz-option>
+      <viz-option value="1" label="蒸羊羔"></viz-option>
+      <viz-option value="2" label="蒸熊掌"></viz-option>
+      <viz-option value="3" label="当红辣子鸡"></viz-option>
+    </viz-select>
   </div>
 </template>
 
@@ -66,7 +87,7 @@ export default {
       test5: [1, 3],
       test6: '123',
       test7: '奇洛李维斯回信',
-      test8: false
+      test8: true
     }
   },
   methods: {

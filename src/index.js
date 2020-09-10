@@ -4,6 +4,7 @@ import Button from './components/button'
 import checkbox from './components/checkbox'
 import radio from './components/radio'
 import Tooltip from './components/tooltip'
+import select from './components/select'
 
 const components = [
   Input,
@@ -13,7 +14,9 @@ const components = [
   checkbox.CheckboxGroup,
   radio.Radio,
   radio.RadioGroup,
-  Tooltip
+  Tooltip,
+  select.Option,
+  select.Select
 ]
 
 const install = (Vue, opt) => {

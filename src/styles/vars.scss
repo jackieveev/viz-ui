@@ -15,6 +15,8 @@ $font-size-base: 14px !default;
 $font-size-medium: 16px !default;
 $font-size-large: 20px !default;
 
+$dropdown-index: 66;
+
 // transition
 $base-transition: all .2s cubic-bezier(.645, .045, .355, 1) !default;
 
@@ -52,4 +54,8 @@ $tooltip-class: #{$prefix}tooltip;
 $tooltip-background: $dark-color !default;
 $tooltip-padding: $font-size-base / 3 $font-size-base / 2;
 $tooltip-arrow-thickness: 8px !default;
-$tooltip-arrow-height: $tooltip-arrow-thickness - $tooltip-arrow-thickness / 4
+$tooltip-arrow-height: $tooltip-arrow-thickness - $tooltip-arrow-thickness / 4;
+
+// select
+$select-class: #{$prefix}select;
+$select-width: 200px;
