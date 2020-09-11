@@ -54,7 +54,7 @@
       tooltip
     </viz-tooltip>
     <br/><br/><br/>
-    <viz-select>
+    <!-- <viz-select>
       <viz-option value="1" label="蒸羊羔"></viz-option>
       <viz-option value="2" label="蒸熊掌"></viz-option>
       <viz-option value="3" label="当红辣子鸡"></viz-option>
@@ -73,7 +73,16 @@
       <viz-option value="1" label="蒸羊羔"></viz-option>
       <viz-option value="2" label="蒸熊掌"></viz-option>
       <viz-option value="3" label="当红辣子鸡"></viz-option>
-    </viz-select>
+    </viz-select> -->
+    <viz-dropdown>
+      <viz-button>下拉菜单 <i class="viz-icon arrowdown"></i></viz-button>
+      <viz-dropdown-menu slot="menu">
+        <viz-dropdown-item v-for="i in 15"
+                          :key="i">
+          选项{{ i }}
+        </viz-dropdown-item>
+      </viz-dropdown-menu>
+    </viz-dropdown>
   </div>
 </template>
 

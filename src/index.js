@@ -5,6 +5,7 @@ import checkbox from './components/checkbox'
 import radio from './components/radio'
 import Tooltip from './components/tooltip'
 import select from './components/select'
+import dropdown from './components/dropdown'
 
 const components = [
   Input,
@@ -16,7 +17,10 @@ const components = [
   radio.RadioGroup,
   Tooltip,
   select.Option,
-  select.Select
+  select.Select,
+  dropdown.Dropdown,
+  dropdown.DropdownMenu,
+  dropdown.DropdownItem
 ]
 
 const install = (Vue, opt) => {

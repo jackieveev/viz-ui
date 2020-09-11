@@ -17,15 +17,16 @@
           `${baseClass}__icon`,
         ]">
     </i>
-    
-      <div :class="[`${dropdownClass}-wrapper`]" v-show="showDropdown" ref="dropdown">
-        <transition name="fade-y">
-          <div :class="[dropdownClass]" v-show="showDropdown">
-            <slot></slot>
-          </div>
-        </transition>
-      </div>
-    
+    <div :class="[`${dropdownClass}-wrapper`]"
+          v-show="showDropdown"
+          ref="dropdown">
+      <transition name="fade-y">
+        <div :class="[dropdownClass]"
+            v-show="showDropdown">
+          <slot></slot>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 

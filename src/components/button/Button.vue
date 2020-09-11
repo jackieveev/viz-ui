@@ -1,8 +1,8 @@
 <template>
   <button :class="[
-            baseClasss,
+            baseClass,
             {
-              [`${baseClasss}--loading`]: loading
+              [`${baseClass}--loading`]: loading
             }
           ]"
           :disabled="disabled">
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      baseClasss: name
+      baseClass: name
     }
   }
 }

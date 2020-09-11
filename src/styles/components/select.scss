@@ -28,9 +28,9 @@
     overflow: auto;
     width: 100%;
     height: 100%;
+    padding: $dropdown-menu-padding;
     background-color: $dark-color;
     border-radius: $border-radius;
-    padding: 10px;
     box-sizing: border-box;
   }
   &.#{$select-class}--focus {
@@ -47,6 +47,14 @@
 
   .fade-y-enter, .fade-y-leave-to {
     opacity: 0;
-    transform: translateY(5px) scaleY(.5);
+    transform: translateY(5px);
+  }
+}
+
+// option
+.#{$option-class} {
+  padding: $option-padding;
+  &:hover {
+    background-color: lighten($dark-color, 10);
   }
 }
