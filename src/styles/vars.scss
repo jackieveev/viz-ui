@@ -61,7 +61,8 @@ $dropdown-class: #{$prefix}dropdown;
 $dropdown-menu-class: #{$dropdown-class}-menu;
 $dropdown-item-class: #{$dropdown-class}-item;
 $dropdown-menu-padding: 5px 0 !default;
-$dropdown-item-padding: 5px 10px;
+$dropdown-item-padding: 5px 10px !default;
+$dropwdown-menu-gap: 5px !default;
 
 // select
 $select-class: #{$prefix}select;

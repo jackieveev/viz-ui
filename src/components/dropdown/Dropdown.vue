@@ -1,19 +1,24 @@
 <template>
   <div :class="[baseClass]"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="handleMouseLeave">
+      v-click-outside="handleClickOutside">
     <slot></slot>
     <slot name="menu"></slot>
   </div>
 </template>
 
 <script>
-const name = 'viz-dropdown'
 import { createPopper } from '@popperjs/core'
+import { directive } from 'v-click-outside'
+
+const name = 'viz-dropdown'
 
 export default {
   name,
   props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
     placement: {
       type: String,
       default: 'bottom',
@@ -28,35 +33,51 @@ export default {
       type: String,
       default: 'hover',
       validator(e) {
-        return ['hover', 'click'].indexOf(e) !== -1
+        return ['hover', 'click', 'custom'].indexOf(e) !== -1
       }
     }
+  },
+  directives: {
+    'click-outside': directive
   },
   data() {
     return {
       baseClass: name,
       popper: null,
-      offsetValue: 10,
-      updated: false,
       refDOM: null,
-      menuCtx: null
+      ctx: null
     }
   },
   methods: {
-    toggle(value) {
-      this.$emit('on-change', value)
-      if (!this.updated && value) {
-        this.popper.update()
-        this.updated = true
+    handleClickOutside(ev) {
+      if (this.trigger === 'click') {
+        this.toggle(false)
       }
     },
-    handleMouseEnter() {
-      this.menuCtx.show = true
-      this.toggle(true)
+    toggle(value) {
+      this.ctx.toggle(value)
+      this.$emit('on-change', value)
+      // 由于dom的display为none，popper的位置
+      // 可能有误，所以在显示后要update一次
+      if (value) {
+        this.$emit('updatePopper')
+      }
     },
-    handleMouseLeave() {
-      this.menuCtx.show = false
-      this.toggle(false)
+    addBindings() {
+      if (this.trigger === 'hover') {
+        this.handleMouseEnter = () => this.toggle(true)
+        this.handleMouseLeave = () => this.toggle(false)
+        this.$el.addEventListener('mouseenter', this.handleMouseEnter)
+        this.$el.addEventListener('mouseleave', this.handleMouseLeave)
+      } else if (this.trigger === 'click') {
+        this.handleClick = () => this.toggle(!this.ctx.show)
+        this.refDOM.addEventListener('click', this.handleClick)
+      } else {
+        if (this.show) {
+          this.toggle(this.show)
+        }
+        this.$watch('show', this.toggle)
+      }
     }
   },
   mounted() {
@@ -67,14 +88,21 @@ export default {
       return
     }
     this.refDOM = ref.elm
-    this.menuCtx = menu.componentInstance
+    this.ctx = menu.componentInstance
     this.popper = createPopper(ref.elm, menu.elm, {
-      placement: this.placement,
-      modifiers: {
-        name: 'offset',
-        options: { offset: [0, this.offsetValue] }
-      }
+      placement: this.placement
     })
+    this.$once('updatePopper', () => {
+      this.popper.update()
+    })
+    this.addBindings()
+  },
+  beforeDestroy() {
+    this.$el.removeEventListener('mouseenter', this.handleMouseEnter)
+    this.$el.removeEventListener('moouseleave', this.handleMouseLeave)
+    this.popper.destroy()
+    this.refDOM = null
+    this.ctx = null
   }
 }
 </script>

@@ -5,7 +5,9 @@
               [`${baseClass}--loading`]: loading
             }
           ]"
-          :disabled="disabled">
+          :disabled="disabled"
+          v-on="$listeners"
+          v-bind="$attrs">
     <slot></slot>
   </button>
 </template>

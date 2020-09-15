@@ -74,11 +74,12 @@
       <viz-option value="2" label="蒸熊掌"></viz-option>
       <viz-option value="3" label="当红辣子鸡"></viz-option>
     </viz-select> -->
-    <viz-dropdown>
+    <viz-dropdown @on-click="handleEnter">
       <viz-button>下拉菜单 <i class="viz-icon arrowdown"></i></viz-button>
       <viz-dropdown-menu slot="menu">
         <viz-dropdown-item v-for="i in 15"
-                          :key="i">
+                          :key="i"
+                          :name="i">
           选项{{ i }}
         </viz-dropdown-item>
       </viz-dropdown-menu>
@@ -104,7 +105,7 @@ export default {
       console.log(this.test)
     },
     handleEnter(v) {
-      console.log('change to: ', v)
+      console.log('change to2: ', v)
     }
   },
   mounted() {
