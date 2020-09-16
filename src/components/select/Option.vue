@@ -1,17 +1,27 @@
 <template>
-  <div :class="[baseClass]">
+  <dropdown-item :class="[baseClass]"
+                :name="value">
     <slot>{{ label }}</slot>
-  </div>
+  </dropdown-item>
 </template>
 
 <script>
+import Drop from '../dropdown'
+
 const name = 'viz-option'
 
 export default {
   name,
   props: {
-    value: {},
-    label: {}
+    value: {
+      type: [String, Number]
+    },
+    label: {
+      type: [String, Number]
+    }
+  },
+  components: {
+    DropdownItem: Drop.DropdownItem
   },
   data() {
     return {

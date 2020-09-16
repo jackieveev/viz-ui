@@ -15,10 +15,6 @@ const name = 'viz-dropdown'
 export default {
   name,
   props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
     placement: {
       type: String,
       default: 'bottom',
@@ -72,11 +68,6 @@ export default {
       } else if (this.trigger === 'click') {
         this.handleClick = () => this.toggle(!this.ctx.show)
         this.refDOM.addEventListener('click', this.handleClick)
-      } else {
-        if (this.show) {
-          this.toggle(this.show)
-        }
-        this.$watch('show', this.toggle)
       }
     }
   },

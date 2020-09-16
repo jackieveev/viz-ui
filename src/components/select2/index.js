@@ -1,7 +1,7 @@
-import Select from './Select'
 import Option from './Option'
+import Select from './Select'
 
 export default {
-  Select,
-  Option
+  Option,
+  Select
 }

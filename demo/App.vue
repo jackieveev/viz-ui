@@ -54,27 +54,7 @@
       tooltip
     </viz-tooltip>
     <br/><br/><br/>
-    <!-- <viz-select>
-      <viz-option value="1" label="蒸羊羔"></viz-option>
-      <viz-option value="2" label="蒸熊掌"></viz-option>
-      <viz-option value="3" label="当红辣子鸡"></viz-option>
-      <viz-option value="1" label="蒸羊羔"></viz-option>
-      <viz-option value="2" label="蒸熊掌"></viz-option>
-      <viz-option value="3" label="当红辣子鸡"></viz-option>
-      <viz-option value="1" label="蒸羊羔"></viz-option>
-      <viz-option value="2" label="蒸熊掌"></viz-option>
-      <viz-option value="3" label="当红辣子鸡"></viz-option>
-      <viz-option value="1" label="蒸羊羔"></viz-option>
-      <viz-option value="2" label="蒸熊掌"></viz-option>
-      <viz-option value="3" label="当红辣子鸡"></viz-option>
-      <viz-option value="1" label="蒸羊羔"></viz-option>
-      <viz-option value="2" label="蒸熊掌"></viz-option>
-      <viz-option value="3" label="当红辣子鸡"></viz-option>
-      <viz-option value="1" label="蒸羊羔"></viz-option>
-      <viz-option value="2" label="蒸熊掌"></viz-option>
-      <viz-option value="3" label="当红辣子鸡"></viz-option>
-    </viz-select> -->
-    <viz-dropdown @on-click="handleEnter">
+    <viz-dropdown trigger="custom" ref="dropdown">
       <viz-button>下拉菜单 <i class="viz-icon arrowdown"></i></viz-button>
       <viz-dropdown-menu slot="menu">
         <viz-dropdown-item v-for="i in 15"
@@ -83,7 +63,24 @@
           选项{{ i }}
         </viz-dropdown-item>
       </viz-dropdown-menu>
-    </viz-dropdown>
+    </viz-dropdown>   
+    <viz-button @click="handleChange">
+      切换
+    </viz-button>
+    <br/><br/>
+    <!-- <viz-select>
+      <viz-option value="1" label="蒸羊羔"></viz-option>
+      <viz-option value="2" label="蒸熊掌"></viz-option>
+      <viz-option value="3" label="当红辣子鸡"></viz-option>
+      <viz-option value="4" label="清蒸石斑鱼"></viz-option>
+      <viz-option value="5" label="波士顿龙虾"></viz-option>
+      <viz-option value="6" label="白饭"></viz-option>
+      <viz-option value="7" label="阿娇"></viz-option>
+      <viz-option value="8" label="外婆桥"></viz-option>
+      <viz-option value="9" label="这些年来"></viz-option>
+      <viz-option value="10" label="芜湖"></viz-option>
+      <viz-option value="12" label="春夏秋冬"></viz-option>
+    </viz-select> -->
   </div>
 </template>
 
@@ -97,12 +94,12 @@ export default {
       test5: [1, 3],
       test6: '123',
       test7: '奇洛李维斯回信',
-      test8: true
+      test8: true,
     }
   },
   methods: {
     handleChange() {
-      console.log(this.test)
+      this.$refs.dropdown.toggle(true)
     },
     handleEnter(v) {
       console.log('change to2: ', v)

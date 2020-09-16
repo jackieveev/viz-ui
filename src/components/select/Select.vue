@@ -1,86 +1,42 @@
 <template>
-  <div :class="[
-          baseClass,
-          {
-            [`${baseClass}--focus`]: focus
-          }
-        ]">
-    <viz-input v-model="inputValue"
-              ref="input"
-              @focus="handleFocus"
-              @blur="handleBlur"
-              placeholder="请选择">
+  <dropdown :class="[baseClass]"
+            trigger="custom"
+            :show="show"
+            @on-click="handleClick">
+    <viz-input @focus="handleFocus">
     </viz-input>
-    <i :class="[
-          'viz-icon',
-          'arrowdown',
-          `${baseClass}__icon`,
-        ]">
-    </i>
-    <div :class="[`${dropdownClass}-wrapper`]"
-          v-show="showDropdown"
-          ref="dropdown">
-      <transition name="fade-y">
-        <div :class="[dropdownClass]"
-            v-show="showDropdown">
-          <slot></slot>
-        </div>
-      </transition>
-    </div>
-  </div>
+    <dropdown-menu slot="menu">
+      <slot></slot>
+    </dropdown-menu>
+  </dropdown>
 </template>
 
 <script>
-import Vue from 'vue'
-import { createPopper } from '@popperjs/core'
 import VizInput from '../input'
+import Drop from '../dropdown'
 
 const name = 'viz-select'
 
 export default {
   name,
   components: {
-    VizInput
+    VizInput,
+    Dropdown: Drop.Dropdown,
+    DropdownMenu: Drop.DropdownMenu
   },
   data() {
     return {
       baseClass: name,
-      inputValue: '',
-      focus: false,
-      popper: null,
-      updated: false,
-      dropdownClass: `${name}__dropdown`
-    }
-  },
-  computed: {
-    showDropdown() {
-      return this.focus
+      show: false
     }
   },
   methods: {
     handleFocus() {
-      this.toggle(true)
+      this.show = true
     },
-    handleBlur() {
-      this.toggle(false)
-    },
-    toggle(value) {
-      this.focus = value
-      // update popper一次
-      if (!this.updated && value) {
-        this.popper.update()
-        this.updated = true
-      }
+    handleClick(value) {
+      console.log('@', value)
     }
-  },
-  mounted() {
-    this.popper = createPopper(this.$refs.input.$el, this.$refs.dropdown, {
-      placement: 'bottom-start',
-      modifiers: {
-        name: 'offset',
-        options: { offset: [0, 5] }
-      }
-    })
   }
 }
 </script>
