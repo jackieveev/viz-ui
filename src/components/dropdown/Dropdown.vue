@@ -66,9 +66,16 @@ export default {
         this.$el.addEventListener('mouseenter', this.handleMouseEnter)
         this.$el.addEventListener('mouseleave', this.handleMouseLeave)
       } else if (this.trigger === 'click') {
-        this.handleClick = () => this.toggle(!this.ctx.show)
+        this.handleClick = () => this.toggle(true)
         this.refDOM.addEventListener('click', this.handleClick)
       }
+    },
+    updatePopper() {
+      this.popper.update()
+    },
+    handleMenuClick(name) {
+      this.$emit('on-menu-click', name)
+      this.toggle(false)
     }
   },
   mounted() {
@@ -83,14 +90,13 @@ export default {
     this.popper = createPopper(ref.elm, menu.elm, {
       placement: this.placement
     })
-    this.$once('updatePopper', () => {
-      this.popper.update()
-    })
+    this.$once('updatePopper', this.updatePopper)
     this.addBindings()
   },
   beforeDestroy() {
     this.$el.removeEventListener('mouseenter', this.handleMouseEnter)
     this.$el.removeEventListener('moouseleave', this.handleMouseLeave)
+    this.$off('updatePopper', this.updatePopper)
     this.popper.destroy()
     this.refDOM = null
     this.ctx = null

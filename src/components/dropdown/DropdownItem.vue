@@ -1,11 +1,5 @@
 <template>
-  <div :class="[
-          baseClass,
-          {
-            [`${baseClass}--selected`]: selected
-          }
-        ]"
-        :data-name="name">
+  <div :class="[baseClass]">
     <slot></slot>
   </div>
 </template>
@@ -23,11 +17,6 @@ export default {
   data() {
     return {
       baseClass: name
-    }
-  },
-  computed: {
-    selected() {
-      return false
     }
   }
 }

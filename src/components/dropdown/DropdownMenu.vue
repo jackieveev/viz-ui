@@ -7,8 +7,7 @@
     <transition name="fade-y">
       <div :class="[baseClass]"
           v-show="show"
-          @click="handleClick"
-          ref="menu">
+          @click="handleClick">
         <slot></slot>
       </div>
     </transition>
@@ -22,7 +21,7 @@ export default {
   data() {
     return {
       baseClass: name,
-      show: true
+      show: false
     }
   },
   methods: {
@@ -30,13 +29,9 @@ export default {
       this.show = value
     },
     handleClick(ev) {
-      let item = ev.target
-      while (item && item.parentNode !== this.$refs.menu) {
-        item = item.parentNode
-      }
-      if (item) {
-        this.$parent.$emit('on-click', item.dataset.name)
-        this.show = false
+      const item = this.$slots.default.find((e) => e.elm.contains(ev.target))
+      if (item && item.tag) {
+        this.$parent.$emit('on-click', item.componentInstance.name)
       }
     }
   }

@@ -1,9 +1,9 @@
 <template>
   <dropdown :class="[baseClass]"
-            trigger="custom"
-            :show="show"
-            @on-click="handleClick">
-    <viz-input @focus="handleFocus">
+            trigger="click"
+            ref="dropdown"
+            @on-click="handleMenuClick">
+    <viz-input :placeholder="placeholder">
     </viz-input>
     <dropdown-menu slot="menu">
       <slot></slot>
@@ -19,6 +19,12 @@ const name = 'viz-select'
 
 export default {
   name,
+  props: {
+    placeholder: {
+      type: [String, Number],
+      default: '请选择'
+    }
+  },
   components: {
     VizInput,
     Dropdown: Drop.Dropdown,
@@ -26,17 +32,16 @@ export default {
   },
   data() {
     return {
-      baseClass: name,
-      show: false
+      baseClass: name
     }
   },
   methods: {
-    handleFocus() {
-      this.show = true
-    },
-    handleClick(value) {
+    handleMenuClick(value) {
       console.log('@', value)
     }
+  },
+  mounted() {
+    console.log(this.$slots)
   }
 }
 </script>
