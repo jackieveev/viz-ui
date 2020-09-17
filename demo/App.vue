@@ -54,15 +54,15 @@
       tooltip
     </viz-tooltip>
     <br/><br/><br/>
-    <viz-dropdown trigger="custom" ref="dropdown" @on-menu-click="handleEnter">
+    <viz-dropdown trigger="hover" ref="dropdown" @on-menu-click="handleEnter">
       <viz-button>下拉菜单 <i class="viz-icon arrowdown"></i></viz-button>
-      <viz-dropdown-menu slot="menu">
+      <template slot="menu">
         <viz-dropdown-item v-for="i in 15"
                           :key="i"
                           :name="i">
           选项{{ i }}
         </viz-dropdown-item>
-      </viz-dropdown-menu>
+      </template>
     </viz-dropdown>   
     <viz-button @click="handleChange">
       切换

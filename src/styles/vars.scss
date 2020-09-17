@@ -58,7 +58,7 @@ $tooltip-arrow-height: $tooltip-arrow-thickness - $tooltip-arrow-thickness / 4 !
 
 // dropdown
 $dropdown-class: #{$prefix}dropdown;
-$dropdown-menu-class: #{$dropdown-class}-menu;
+$dropdown-menu-class: #{$dropdown-class}__menu;
 $dropdown-item-class: #{$dropdown-class}-item;
 $dropdown-menu-padding: 5px 0 !default;
 $dropdown-item-padding: 5px 10px !default;

@@ -1,7 +1,5 @@
 <template>
-  <dropdown-item :class="[baseClass]"
-                :name="value"
-                :data-label="label">
+  <dropdown-item :class="[baseClass]" :name="value">
     <slot>{{ label }}</slot>
   </dropdown-item>
 </template>

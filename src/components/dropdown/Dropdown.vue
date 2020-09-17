@@ -2,7 +2,19 @@
   <div :class="[baseClass]"
       v-click-outside="handleClickOutside">
     <slot></slot>
-    <slot name="menu"></slot>
+    <!-- wrapper用于popper使用的dom，因为popper使用到transform，再想做transition不好做
+      另外还能用padding-top作为ref和menu的间隙，使得用户在hover时不会快速被关闭 -->
+    <div :class="[`${menuClass}-wrapper`]"
+        ref="menu"
+        v-show="show">
+      <transition name="fade-y">
+        <div :class="[menuClass]"
+            v-show="show"
+            @click="handleMenuClick">
+          <slot name="menu"></slot>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -39,9 +51,10 @@ export default {
   data() {
     return {
       baseClass: name,
+      menuClass: `${name}__menu`,
       popper: null,
       refDOM: null,
-      ctx: null
+      show: false
     }
   },
   methods: {
@@ -51,7 +64,7 @@ export default {
       }
     },
     toggle(value) {
-      this.ctx.toggle(value)
+      this.show = value
       this.$emit('on-change', value)
       // 由于dom的display为none，popper的位置
       // 可能有误，所以在显示后要update一次
@@ -66,8 +79,8 @@ export default {
         this.$el.addEventListener('mouseenter', this.handleMouseEnter)
         this.$el.addEventListener('mouseleave', this.handleMouseLeave)
       } else if (this.trigger === 'click') {
-        this.handleClick = () => this.toggle(true)
-        this.refDOM.addEventListener('click', this.handleClick)
+        this.handleRefClick = () => this.toggle(true)
+        this.refDOM.addEventListener('click', this.handleRefClick)
       }
     },
     updatePopper() {
@@ -76,18 +89,23 @@ export default {
     handleMenuClick(name) {
       this.$emit('on-menu-click', name)
       this.toggle(false)
+    },
+    handleMenuClick(ev) {
+      const item = this.$slots.menu.find((e) => e.elm.contains(ev.target))
+      if (item && item.tag) {
+        this.$emit('on-click', item.componentInstance.name)
+        this.show = false
+      }
     }
   },
   mounted() {
-    if (!this.$slots.default || !this.$slots.menu) return
-    const ref = this.$slots.default.find(e => e.tag),
-          menu = this.$slots.menu.find(e => e.tag)
-    if (!ref || !ref.elm || !menu || !menu.elm) {
+    if (!this.$slots.default) return
+    const ref = this.$slots.default.find(e => e.tag)
+    if (!ref || !ref.elm) {
       return
     }
     this.refDOM = ref.elm
-    this.ctx = menu.componentInstance
-    this.popper = createPopper(ref.elm, menu.elm, {
+    this.popper = createPopper(ref.elm, this.$refs.menu, {
       placement: this.placement
     })
     this.$once('updatePopper', this.updatePopper)
@@ -96,10 +114,10 @@ export default {
   beforeDestroy() {
     this.$el.removeEventListener('mouseenter', this.handleMouseEnter)
     this.$el.removeEventListener('moouseleave', this.handleMouseLeave)
+    this.refDOM.removeEventListener('click', this.handleRefClick)
     this.$off('updatePopper', this.updatePopper)
     this.popper.destroy()
     this.refDOM = null
-    this.ctx = null
   }
 }
 </script>

@@ -3,11 +3,8 @@
             trigger="click"
             ref="dropdown"
             @on-click="handleMenuClick">
-    <viz-input :placeholder="placeholder">
-    </viz-input>
-    <dropdown-menu slot="menu">
-      <slot></slot>
-    </dropdown-menu>
+    <viz-input :placeholder="placeholder"></viz-input>
+    <slot slot="menu"></slot>
   </dropdown>
 </template>
 
@@ -28,7 +25,6 @@ export default {
   components: {
     VizInput,
     Dropdown: Drop.Dropdown,
-    DropdownMenu: Drop.DropdownMenu
   },
   data() {
     return {
@@ -39,9 +35,6 @@ export default {
     handleMenuClick(value) {
       console.log('@', value)
     }
-  },
-  mounted() {
-    console.log(this.$slots)
   }
 }
 </script>
