@@ -58,7 +58,7 @@
       tooltip2
     </viz-tooltip>
     <br/><br/><br/>
-    <viz-dropdown ref="dropdown" @on-menu-click="handleEnter">
+    <viz-dropdown trigger="click" @on-menu-click="handleEnter">
       <viz-button>下拉菜单 <i class="viz-icon arrowdown"></i></viz-button>
       <template slot="menu">
         <viz-dropdown-item v-for="i in 15"
@@ -72,7 +72,7 @@
       切换
     </viz-button>
     <br/><br/>
-    <!-- <viz-select>
+    <viz-select v-model="test9">
       <viz-option value="1" label="蒸羊羔"></viz-option>
       <viz-option value="2" label="蒸熊掌"></viz-option>
       <viz-option value="3" label="当红辣子鸡"></viz-option>
@@ -84,7 +84,7 @@
       <viz-option value="9" label="这些年来"></viz-option>
       <viz-option value="10" label="芜湖"></viz-option>
       <viz-option value="12" label="春夏秋冬"></viz-option>
-    </viz-select> -->
+    </viz-select>
   </div>
 </template>
 
@@ -99,6 +99,7 @@ export default {
       test6: '123',
       test7: '奇洛李维斯回信',
       test8: true,
+      test9: '9'
     }
   },
   methods: {

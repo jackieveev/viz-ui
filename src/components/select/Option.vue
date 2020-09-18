@@ -1,5 +1,11 @@
 <template>
-  <dropdown-item :class="[baseClass]" :name="value">
+  <dropdown-item :class="[
+                    baseClass,
+                    {
+                      [`${baseClass}--selected`]: selected
+                    }
+                  ]"
+                  :name="value">
     <slot>{{ label }}</slot>
   </dropdown-item>
 </template>
@@ -27,6 +33,9 @@ export default {
     // 这里重新包装过组件，应该把name也补上
     name() {
       return this.value
+    },
+    selected() {
+      return this.$parent.current === this.value
     }
   },
   data() {

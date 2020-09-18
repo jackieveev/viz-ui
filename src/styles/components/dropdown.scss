@@ -1,8 +1,21 @@
 .#{$dropdown-menu-class}-wrapper {
   position: absolute;
   z-index: $dropdown-index;
-  padding-top: $dropwdown-menu-gap;
+  // padding-top: $dropwdown-menu-gap;
   box-sizing: border-box;
+
+  $pmap: (
+    "top": "bottom",
+    "bottom": "top",
+    "left": "right",
+    "right": "left"
+  );
+
+  @each $p, $op in $pmap {
+    &[data-popper-placement^=#{$p}] {
+      padding-#{$op}: $dropwdown-menu-gap;
+    }
+  }
 }
 
 .#{$dropdown-menu-class} {

@@ -1,7 +1,7 @@
 <script>
 import Vue from 'vue'
 import { createPopper } from '@popperjs/core'
-// import { directive } from 'v-click-outside'
+import { directive } from 'v-click-outside'
 
 const baseClass = 'viz-dropdown', menuClass = `${baseClass}__menu`
 
@@ -24,11 +24,11 @@ export default {
       validator(e) {
         return ['hover', 'click', 'custom'].indexOf(e) !== -1
       }
+    },
+    dropdownClass: {
+      type: [String, Array]
     }
   },
-  // directives: {
-  //   'click-outside': directive
-  // },
   data() {
     return {
       popper: null,
@@ -40,16 +40,17 @@ export default {
     return this.$slots.default.find(e => e.tag)
   },
   methods: {
-    updatePopper() {
-      this.popper.update()
-    },
     toggle(value) {
       this.vnode.show = value
       // 由于dom的display为none，popper的位置
       // 可能有误，所以在显示后要update一次
       if (value) {
-        this.$emit('updatePopper')
+        this.popper.update()
       }
+    },
+    // 选中某一菜单
+    select(name) {
+      this.vnode.select(name)
     },
     addBindings() {
       if (this.trigger === 'hover') {
@@ -59,10 +60,18 @@ export default {
         this.$el.addEventListener('mouseleave', this.handleMouseLeave)
         this.vnode.$el.addEventListener('mouseenter', this.handleMouseEnter)
         this.vnode.$el.addEventListener('mouseleave', this.handleMouseLeave)
+        this.removeListeners = () => {
+          this.$el.removeEventListener('mouseenter', this.handleMouseEnter)
+          this.$el.removeEventListener('mouseleave', this.handleMouseLeave)
+          this.vnode.$el.removeEventListener('mouseenter', this.handleMouseEnter)
+          this.vnode.$el.removeEventListener('mouseleave', this.handleMouseLeave)
+        }
       } else if (this.trigger === 'click') {
-        // this.handleRefClick = () => this.toggle(true)
-        // this.refDOM.addEventListener('click', this.handleRefClick)
-        
+        this.handleClick = () => this.toggle(!this.vnode.show)
+        this.$el.addEventListener('click', this.handleClick)
+        this.removeListeners = () => {
+          this.$el.removeListeners('click', this.handleClick)
+        }
       }
     }
   },
@@ -72,13 +81,17 @@ export default {
     // 放到body中避免各种overflow问题
     const that = this
     this.vnode = new Vue({
-      data: { show: false },
+      data: { show: false, current: null },
+      directives: { 'click-outside': directive },
       render(h) {
         return h(
           'div',
           {
-            class: `${menuClass}-wrapper`,
-            directives: [{ name: 'show', value: this.show }]
+            class: [`${menuClass}-wrapper`, that.dropdownClass],
+            directives: [
+              { name: 'show', value: this.show },
+              { name: 'click-outside', value: this.handleClickOutside }
+            ]
           },
           [h(
             'transition',
@@ -98,11 +111,41 @@ export default {
         )
       },
       methods: {
+        select(name) {
+          this.current = name
+          const target = that.$slots.menu.find((e) => e.componentInstance && e.componentInstance.name === name)
+          if (target) {
+            that.$emit('on-menu-select', target.componentInstance)
+          }
+        },
+        // IE11 contains方法兼容性不好
+        // root是不是target的祖先元素
+        contains(root, target) {
+          let item = target
+          while (item && item !== root) {
+            item = item.parentNode
+          }
+          return !!item
+        },
         handleMenuClick(ev) {
-          const item = that.$slots.menu.find((e) => e.elm.contains(ev.target))
+          const item = that.$slots.menu.find((e) => this.contains(e.elm, ev.target))
           if (item && item.tag) {
-            this.$emit('on-click', item.componentInstance.name)
+            const { name } = item.componentInstance
+            that.$emit('on-menu-click', name)
+            that.$emit('on-menu-select', item.componentInstance)
+            this.current = name
             this.show = false
+          }
+        },
+        handleClickOutside(ev) {
+          // 触发器不是hover时
+          if (that.trigger === 'hover') {
+            return
+          }
+          // 如果不是ref或ref的子元素触发的则为outside click
+          if (ev.target !== that.$el && !this.contains(that.$el, ev.target)) {
+            // 关闭
+            that.toggle(false)
           }
         }
       }
@@ -110,11 +153,16 @@ export default {
     this.popper = createPopper(this.$el, this.vnode.$el, {
       placement: this.placement
     })
-    this.$once('updatePopper', this.updatePopper)
     this.addBindings()
   },
   beforeDestroy() {
-
+    if (this.removeListeners) {
+      this.removeListeners()
+    }
+    this.popper.destroy()
+    this.vnode.$destroy()
+    this.popper = null
+    this.vnode = null
   }
 }
 </script>
