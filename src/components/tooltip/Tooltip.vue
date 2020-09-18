@@ -71,15 +71,21 @@ export default {
     return h('span', vn.text)
   },
   mounted() {
+    const dom = document.createElement('div')
+    document.body.appendChild(dom)
     // 放到body中避免各种overflow问题
     this.vnode = new Vue({
-      data: { show: false, content: this.content },
+      data: {
+        show: false,
+        content: this.content
+      },
       template: `<transition name="fade">
         <div class="${name}" v-show="show">
           {{ content }}
         </div>
-      </transition>`,
-    }).$mount(document.body.lastChild)
+      </transition>`
+    }).$mount(dom)
+    document.body.appendChild(this.vnode.$el)
     this.popper = createPopper(this.$el, this.vnode.$el, {
       placement: this.placement,
       modifiers: {

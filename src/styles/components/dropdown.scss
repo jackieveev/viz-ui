@@ -1,47 +1,42 @@
-.#{$dropdown-class} {
-  position: relative;
-  display: inline-block;
+.#{$dropdown-menu-class}-wrapper {
+  position: absolute;
+  z-index: $dropdown-index;
+  padding-top: $dropwdown-menu-gap;
+  box-sizing: border-box;
+}
 
-  .#{$dropdown-menu-class}-wrapper {
-    position: absolute;
-    z-index: $dropdown-index;
-    padding-top: $dropwdown-menu-gap;
-    box-sizing: border-box;
-  }
+.#{$dropdown-menu-class} {
+  overflow: auto;
+  min-width: 80px;
+  max-height: 300px;
+  max-width: 300px;
+  padding: $dropdown-menu-padding;
+  background-color: $dark-color;
+  border-radius: $border-radius;
+  box-sizing: border-box;
+}
 
-  .#{$dropdown-menu-class} {
-    overflow: auto;
-    min-width: 80px;
-    max-height: 300px;
-    max-width: 300px;
-    padding: $dropdown-menu-padding;
-    background-color: $dark-color;
-    border-radius: $border-radius;
-    box-sizing: border-box;
+.#{$dropdown-item-class} {
+  padding: $dropdown-item-padding;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(255, 255, 255, .05);
   }
+}
 
-  .#{$dropdown-item-class} {
-    padding: $dropdown-item-padding;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-    cursor: pointer;
-    &:hover {
-      background-color: rgba(255, 255, 255, .05);
-    }
-  }
+.fade-y-enter-active,
+.fade-y-leave-active {
+  transition: $base-transition;
+  transition-duration: .1s;
+  transform-origin: center 0;
+}
 
-  .fade-y-enter-active,
-  .fade-y-leave-active {
-    transition: $base-transition;
-    transition-duration: .1s;
-    transform-origin: center 0;
-  }
-
-  .fade-y-enter, .fade-y-leave-to {
-    opacity: 0;
-    transform: translateY(5px);
-  }
+.fade-y-enter, .fade-y-leave-to {
+  opacity: 0;
+  transform: translateY(5px);
 }
