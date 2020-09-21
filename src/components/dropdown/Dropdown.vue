@@ -41,11 +41,14 @@ export default {
   },
   methods: {
     toggle(value) {
-      this.vnode.show = value
-      // 由于dom的display为none，popper的位置
-      // 可能有误，所以在显示后要update一次
-      if (value) {
-        this.popper.update()
+      if (this.vnode.show !== value) {
+        this.$emit('on-visible-change', value)
+        this.vnode.show = value
+        // 由于dom的display为none，popper的位置
+        // 可能有误，所以在显示后要update一次
+        if (value) {
+          this.popper.update()
+        }
       }
     },
     // 选中某一菜单
@@ -115,11 +118,12 @@ export default {
           this.current = name
           const target = that.$slots.menu.find((e) => e.componentInstance && e.componentInstance.name === name)
           if (target) {
-            that.$emit('on-menu-select', target.componentInstance)
+            const { name, label } = target.componentInstance
+            that.$emit('on-menu-select', { name, label })
           }
         },
         // IE11 contains方法兼容性不好
-        // root是不是target的祖先元素
+        // 判断root是不是target的祖先元素
         contains(root, target) {
           let item = target
           while (item && item !== root) {
@@ -130,15 +134,14 @@ export default {
         handleMenuClick(ev) {
           const item = that.$slots.menu.find((e) => this.contains(e.elm, ev.target))
           if (item && item.tag) {
-            const { name } = item.componentInstance
+            const { name, label } = item.componentInstance
             that.$emit('on-menu-click', name)
-            that.$emit('on-menu-select', item.componentInstance)
+            that.$emit('on-menu-select', { name, label })
+            that.toggle(false)
             this.current = name
-            this.show = false
           }
         },
         handleClickOutside(ev) {
-          // 触发器不是hover时
           if (that.trigger === 'hover') {
             return
           }

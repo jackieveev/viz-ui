@@ -11,6 +11,7 @@
   overflow: hidden;
   vertical-align: top;
   outline: none;
+  font-size: $font-size-base;
   &:not([disabled]):hover {
     background-color: lighten($primary-color, 2);
   }

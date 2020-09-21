@@ -72,7 +72,7 @@
       切换
     </viz-button>
     <br/><br/>
-    <viz-select v-model="test9">
+    <viz-select v-model="test9" clearable>
       <viz-option value="1" label="蒸羊羔"></viz-option>
       <viz-option value="2" label="蒸熊掌"></viz-option>
       <viz-option value="3" label="当红辣子鸡"></viz-option>

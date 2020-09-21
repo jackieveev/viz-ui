@@ -1,6 +1,54 @@
 .#{$select-class} {
+  $icon-class: #{$select-class}__icon;
   // 只有一个Input在里面
+  display: inline-block;
   width: $select-width;
+  position: relative;
+
+  .#{$input-inner-class} {
+    padding-right: $input-icon-width;
+    cursor: pointer;
+  }
+
+  .#{$icon-class} {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: $input-icon-width;
+    font-size: $font-size-base;
+    text-align: center;
+    transform: translateY(-50%);
+    color: $medium-gray-color;
+    transition: $base-transition;
+    cursor: pointer;
+  }
+
+  &.#{$select-class}--focus {
+    .#{$input-inner-class} {
+      border-color: $primary-color;
+    }
+    .arrowdown {
+      transform: rotate(180deg) translateY(50%);
+    }
+  }
+  &.#{$select-class}--clearable {
+    .arrowdown:hover {
+      &:before {
+        background-color: lighten($dark-color, 10);
+        content: "\e616";
+        border-radius: 50%;
+        padding: 1px;
+        font-size: $font-size-small;
+        color: $medium-gray-color;
+      }
+    }
+  }
+  &.#{$select-class}--disabled {
+    .#{$input-inner-class},
+    .#{$icon-class} {
+      cursor: not-allowed;
+    }
+  }
 }
 .#{$select-dropdown-class} {
   width: $select-width;
@@ -11,7 +59,7 @@
   .#{$option-class}--selected {
     position: relative;
     background-color: rgba(255, 255, 255, .15);
-    color: $white-color;
+    color: $primary-color;
     &:after {
       content: '';
       position: absolute;
