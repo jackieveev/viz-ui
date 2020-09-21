@@ -85,6 +85,8 @@
       <viz-option value="10" label="芜湖"></viz-option>
       <viz-option value="12" label="春夏秋冬"></viz-option>
     </viz-select>
+    <br/><br/><br/>
+    <viz-slider v-model="test10"></viz-slider>
   </div>
 </template>
 
@@ -99,7 +101,8 @@ export default {
       test6: '123',
       test7: '奇洛李维斯回信',
       test8: true,
-      test9: '9'
+      test9: '9',
+      test10: 30
     }
   },
   methods: {
@@ -112,6 +115,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
+      this.test10 = 99
     }, 3000)
   }
 }

@@ -70,6 +70,9 @@ export default {
     // comment node
     return h('span', vn.text)
   },
+  updated() {
+    this.popper.update()
+  },
   mounted() {
     const dom = document.createElement('div')
     document.body.appendChild(dom)

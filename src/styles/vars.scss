@@ -71,3 +71,7 @@ $select-width: 180px !default;
 $option-class: #{$prefix}option;
 $option-padding: 5px 10px 5px 20px !default;
 
+// slider
+$slider-class: #{$prefix}slider;
+$slider-thumb-aspect: 12px !default;
+$slider-track-thickness: 4px !default;
