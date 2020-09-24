@@ -23,7 +23,6 @@ module.exports = merge(base, {
       template: './demo/index.html',
       filename: './index.html'
     }),
-    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ]
 })
