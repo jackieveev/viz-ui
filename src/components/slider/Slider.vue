@@ -1,23 +1,38 @@
 <template>
-  <div :class="[baseClass]">
-    <div :class="[`${baseClass}__track`]"
-        @mousedown="handleMouseDown"
-        ref="track">
-      <span :class="[`${baseClass}__highlight-track`]" :style="{ width: `${length}px` }"></span>
-      <tooltip content="123" :hover="false" :value="drag">
-        <div :class="[`${baseClass}__thumb`]"
-            :style="{
-              transform: `translate3D(${length}px, 0, 0)`
-            }">
-        </div>
-      </tooltip>
+  <div :class="[`${baseClass}-wrapper`]">
+    <div :class="[baseClass]" :style="{ width: showInput ? 'calc(100% - 90px)' : '100%' }">
+      <div :class="[`${baseClass}__track`]"
+          @mousedown="handleMouseDown"
+          ref="track">
+        <span :class="[`${baseClass}__highlight-track`]"
+              :style="{ width: `${length}px` }"
+              ref="htrack"></span>
+        <tooltip dis-hover 
+                :content="value"
+                :value="showTooltip"
+                :offset="tooltipOffset"
+                :placement="tooltipPlacement">
+          <div :class="[`${baseClass}__thumb`]"
+              :style="{
+                transform: `translate3D(${length}px, 0, 0)`
+              }">
+          </div>
+        </tooltip>
+      </div>
     </div>
+    <input-number v-if="showInput"
+                  :value="value"
+                  :min="min"
+                  :max="max"
+                  @on-change="emitValue">
+    </input-number>
   </div>
 </template>
 
 <script>
 import Tooltip from '../tooltip'
-import { getOffset } from '@/util/helpers'
+import InputNumber from '../input-number'
+import { frameDebounce } from '@/util/helpers'
 
 const name = 'viz-slider'
 
@@ -36,16 +51,44 @@ export default {
     min: {
       type: Number,
       default: 0
+    },
+    showValue: {
+      type: String,
+      default: 'drag',
+      validator(e) {
+        return ['drag', 'always', 'never'].indexOf(e) !== -1
+      }
+    },
+    tooltipPlacement: {
+      type: String
+    },
+    tooltipOffset: {
+      type: Number,
+      default: 15
+    },
+    showInput: {
+      type: Boolean,
+      default: true
     }
   },
   components: {
-    Tooltip
+    Tooltip,
+    InputNumber
   },
   data() {
     return {
       baseClass: name,
       drag: false,
-      length: 0
+      length: 0,
+      timer: null
+    }
+  },
+  computed: {
+    showTooltip() {
+      if (this.showValue === 'drag') {
+        return this.drag
+      }
+      return this.showValue === 'always'
     }
   },
   watch: {
@@ -57,19 +100,33 @@ export default {
     handleMouseDown(ev) {
       const { srcElement, pageX, offsetX } = ev
       ev.preventDefault()
-      // click
-      if (srcElement === this.$refs.track) {
-        // this.$emit('input', this.getValue(offsetX))
-        
-      } else {
-        // drag
-        this.drag = true
+      // click to change
+      if (srcElement === this.$refs.track || srcElement === this.$refs.htrack) {
+        this.emitValue(this.getValue(offsetX))
+      }
+      // 不区分click和drag应该更省事些，是吗？
+      // 或者用以下方式来区分是点击还是拖拽
+      // if (clickElement === track) {
+      //   this.emitValue()
+      // } else {
+      //   this.drag = true
+      // }
+      this.drag = true
+    },
+    mousemoveHandler({ pageX }) {
+      if (this.drag) {
+        const rect = this.$refs.track.getBoundingClientRect(),
+              value = Math.min(
+                Math.max(this.min, this.getValue(pageX - this.$refs.track.getBoundingClientRect().left)),
+                this.max
+              )
+        this.emitValue(value)
       }
     },
-    handleMouseMove({ pageX }) {
-      if (this.drag) {
-        const rect = this.$refs.track.getBoundingClientRect()
-        this.$emit('input', Math.min(Math.max(this.min, this.getValue(pageX - this.$refs.track.getBoundingClientRect().left)), this.max))
+    emitValue(value) {
+      console.log('@@@', value)
+      if (value !== this.value) {
+        this.$emit('input', value)
       }
     },
     getValue(value) {
@@ -86,6 +143,7 @@ export default {
     }
   },
   created() {
+    this.handleMouseMove = frameDebounce(this.mousemoveHandler)
     document.addEventListener('mousemove', this.handleMouseMove)
     document.addEventListener('mouseup', this.handleMouseUp)
   },

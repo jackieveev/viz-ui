@@ -1,4 +1,7 @@
 <script>
+// todo
+// 这个组件代码和tooltip高度相似，应该合并一下
+
 import Vue from 'vue'
 import { createPopper } from '@popperjs/core'
 import { directive } from 'v-click-outside'
@@ -77,6 +80,9 @@ export default {
         }
       }
     }
+  },
+  updated() {
+    this.popper.update()
   },
   mounted() {
     const dom = document.createElement('div')

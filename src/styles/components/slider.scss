@@ -1,5 +1,17 @@
+.#{$slider-class}-wrapper {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  white-space: nowrap;
+
+  .#{$input-number-class} {
+    width: $slider-input-width;
+    margin-left: 10px;
+  }
+}
+
 .#{$slider-class} {
-  width: 300px;
+  display: inline-block;
   $track-class: #{$slider-class}__track;
   $highlight-track-class: #{$slider-class}__highlight-track;
   $thumb-class: #{$slider-class}__thumb;

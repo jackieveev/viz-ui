@@ -92,11 +92,12 @@ export default {
       if (Number.isNaN(res)) {
         res = this.previousValue
       }
-      if (this.min !== undefined) {
-        res = Math.max(value, this.min)
-      }
+      // 判断时一定要先判断max再判断min
       if (this.max !== undefined) {
         res = Math.min(value, this.max)
+      }
+      if (this.min !== undefined) {
+        res = Math.max(value, this.min)
       }
       // 正负无穷
       if (!Number.isFinite(res)) {

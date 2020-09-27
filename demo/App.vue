@@ -22,6 +22,7 @@
                       v-model="test1"
                       :step="10"
                       :min="0"
+                      :max="100000"
                       placeholder="请输入"
                       :precise="3">
     </viz-input-number>
@@ -50,7 +51,7 @@
       <viz-radio label="奇洛李维斯回信" disabled>奇洛李维斯回信</viz-radio>
     </viz-radio-group>
     <br/><br/>
-    <viz-tooltip content="stupid 😂" placement="right-start" v-model="test8" :hover="false">
+    <viz-tooltip content="stupid 😂" placement="right-start" v-model="test8" dis-hover>
       tooltip
     </viz-tooltip>
     <br/><br/>
@@ -86,7 +87,7 @@
       <viz-option value="12" label="春夏秋冬"></viz-option>
     </viz-select>
     <br/><br/><br/>
-    <viz-slider v-model="test10"></viz-slider>
+    <viz-slider style="width: 300px;" v-model="test10" placement="top" :offset="0"></viz-slider>
   </div>
 </template>
 

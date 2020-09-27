@@ -7,9 +7,7 @@ const name = 'viz-tooltip'
 export default {
   name,
   props: {
-    content: {
-      type: String
-    },
+    content: {},
     placement: {
       type: String,
       default: 'bottom',
@@ -21,21 +19,27 @@ export default {
       }
     },
     value: {},
-    // hover控制显示
-    hover: {
+    // 默认hover控制显示
+    disHover: {
       type: Boolean,
-      default: true
+      default: false
+    },
+    // popper offset from ref
+    offset: {
+      type: Number,
+      default: 10
     }
   },
   data() {
     return {
       popper: null,
-      // popper offset from ref
-      offsetValue: 10,
       vnode: null
     }
   },
   watch: {
+    content(nv) {
+      this.vnode.content = nv
+    },
     value(nv) {
       if (nv !== this.vnode.show) {
         this.vnode.show = nv
@@ -44,12 +48,19 @@ export default {
   },
   methods: {
     toggle(value) {
-      this.vnode.show = value
-      this.$emit('input', value)
-      this.$emit('on-change', value)
+      if (this.vnode.show !== value) {
+        this.vnode.show = value
+        this.$emit('input', value)
+        this.$emit('on-change', value)
+        // 由于dom的display为none，popper的位置
+        // 可能有误，所以在显示后要update一次
+        if (value) {
+          this.popper.update()
+        }
+      }
     },
     addBindings() {
-      if (!this.hover) {
+      if (this.disHover) {
         this.vnode.show = this.value
         return
       }
@@ -93,7 +104,7 @@ export default {
       placement: this.placement,
       modifiers: {
         name: 'offset',
-        options: { offset: [0, this.offsetValue] }
+        options: { offset: [0, this.offset] }
       }
     })
     this.addBindings()
