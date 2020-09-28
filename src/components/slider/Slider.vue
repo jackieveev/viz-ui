@@ -124,7 +124,6 @@ export default {
       }
     },
     emitValue(value) {
-      console.log('@@@', value)
       if (value !== this.value) {
         this.$emit('input', value)
       }

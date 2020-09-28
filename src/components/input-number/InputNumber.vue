@@ -8,8 +8,7 @@
     <viz-input v-model="displayValue"
               @blur="handleBlur"
               :disabled="disabled"
-              v-bind="$attrs"
-              v-on="$listeners">
+              v-bind="$attrs">
     </viz-input>
     <div v-if="showButton"
         :class="[
@@ -92,12 +91,11 @@ export default {
       if (Number.isNaN(res)) {
         res = this.previousValue
       }
-      // 判断时一定要先判断max再判断min
-      if (this.max !== undefined) {
-        res = Math.min(value, this.max)
-      }
       if (this.min !== undefined) {
-        res = Math.max(value, this.min)
+        res = Math.max(res, this.min)
+      }
+      if (this.max !== undefined) {
+        res = Math.min(res, this.max)
       }
       // 正负无穷
       if (!Number.isFinite(res)) {
