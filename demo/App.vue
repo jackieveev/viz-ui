@@ -87,7 +87,12 @@
       <viz-option value="12" label="春夏秋冬"></viz-option>
     </viz-select>
     <br/><br/><br/>
-    <viz-slider style="width: 300px;" v-model="test10" placement="top" :offset="0"></viz-slider>
+    <viz-slider style="width: 300px;" v-model="test10"></viz-slider>
+    <br/><br/><br/>
+    <viz-slider style="width: 300px;" v-model="test10" show-input></viz-slider>
+    <br/><br/>
+    <viz-switch v-model="test11"></viz-switch>
+    <br/><br/>
   </div>
 </template>
 
@@ -103,7 +108,8 @@ export default {
       test7: '奇洛李维斯回信',
       test8: true,
       test9: '9',
-      test10: 30
+      test10: 30,
+      test11: true
     }
   },
   methods: {

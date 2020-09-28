@@ -1,0 +1,43 @@
+.#{$switch-class} {
+  $display-class: #{$switch-class}-display;
+  $handle-class: #{$display-class}__handle;
+
+  input[type="checkbox"] {
+    display: none;
+    &:checked + .#{$display-class} {
+      background-color: $primary-color;
+      .#{$handle-class} {
+        transform: translate3d(100%, 0, 0);
+      }
+    }
+  }
+
+  .#{$display-class} {
+    cursor: pointer;
+    width: $switch-width;
+    height: $switch-height;
+    background-color: $dark-color;
+    border-radius: $switch-height / 2;
+    padding: 2px;
+    box-sizing: border-box;
+    transition: $base-transition;
+    overflow: hidden;
+
+    .#{$handle-class} {
+      display: inline-block;
+      vertical-align: top;
+      height: 100%;
+      width: $switch-width - $switch-height;
+      position: relative;
+      transition: $base-transition;
+      &:after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: $switch-height - 4px;
+        border-radius: 50%;
+        background-color: $white-color;
+      }
+    }
+  }
+}

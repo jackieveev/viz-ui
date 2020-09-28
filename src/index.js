@@ -7,6 +7,7 @@ import Tooltip from './components/tooltip'
 import select from './components/select'
 import dropdown from './components/dropdown'
 import Slider from './components/slider'
+import Switch from './components/switch'
 
 const components = [
   Input,
@@ -21,7 +22,8 @@ const components = [
   select.Option,
   dropdown.Dropdown,
   dropdown.DropdownItem,
-  Slider
+  Slider,
+  Switch
 ]
 
 const install = (Vue, opt) => {
