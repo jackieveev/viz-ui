@@ -22,6 +22,7 @@ const components = [
   select.Select,
   select.Option,
   dropdown.Dropdown,
+  dropdown.DropdownMenu,
   dropdown.DropdownItem,
   Slider,
   Switch,
