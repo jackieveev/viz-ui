@@ -1,6 +1,7 @@
 .#{$switch-class} {
   $display-class: #{$switch-class}-display;
   $handle-class: #{$display-class}__handle;
+  display: inline-block;
 
   input[type="checkbox"] {
     display: none;
@@ -9,6 +10,10 @@
       .#{$handle-class} {
         transform: translate3d(100%, 0, 0);
       }
+    }
+    &:disabled + .#{$display-class} {
+      cursor: not-allowed;
+      background-color: lighten($primary-color, 10);
     }
   }
 

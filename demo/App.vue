@@ -91,7 +91,7 @@
     <br/><br/><br/>
     <viz-slider style="width: 300px;" v-model="test10" show-input></viz-slider>
     <br/><br/>
-    <viz-switch v-model="test11"></viz-switch>
+    <viz-switch v-model="test11"></viz-switch> <viz-switch v-model="test11" disabled></viz-switch>
     <br/><br/>
   </div>
 </template>
