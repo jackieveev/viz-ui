@@ -8,6 +8,7 @@ import select from './components/select'
 import dropdown from './components/dropdown'
 import Slider from './components/slider'
 import Switch from './components/switch'
+import ColorPicker from './components/color-picker'
 
 const components = [
   Input,
@@ -23,7 +24,8 @@ const components = [
   dropdown.Dropdown,
   dropdown.DropdownItem,
   Slider,
-  Switch
+  Switch,
+  ColorPicker
 ]
 
 const install = (Vue, opt) => {

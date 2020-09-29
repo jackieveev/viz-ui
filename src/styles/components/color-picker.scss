@@ -1,0 +1,8 @@
+.#{$color-picker-handle-class} {
+  border-radius: $border-radius;
+  background-color: $dark-color;
+  height: $color-picker-handle-height;
+  width: $color-picker-handle-width;
+  cursor: pointer;
+  border: 2px solid transparent;
+}

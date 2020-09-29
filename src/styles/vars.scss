@@ -81,3 +81,9 @@ $slider-input-width: 80px !default;
 $switch-class: #{$prefix}switch;
 $switch-width: 28px !default;
 $switch-height: 14px !default;
+
+// color picker
+$color-picker-class: #{$prefix}color-picker;
+$color-picker-handle-class: #{$color-picker-class}__handle;
+$color-picker-handle-width: 24px;
+$color-picker-handle-height: 20px;
