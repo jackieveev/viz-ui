@@ -63,6 +63,9 @@ $dropdown-item-class: #{$dropdown-class}-item;
 $dropdown-menu-padding: 5px 0 !default;
 $dropdown-item-padding: 5px 10px !default;
 $dropwdown-menu-gap: 5px !default;
+$dropdown-menu-min-width: 80px !default;
+$dropdown-menu-max-height: 300px !default;
+$dropdown-menu-max-width: 300px !default;
 
 // select
 $select-class: #{$prefix}select;
@@ -84,6 +87,7 @@ $switch-height: 14px !default;
 
 // color picker
 $color-picker-class: #{$prefix}color-picker;
+$color-picker-dropdown-class: #{$color-picker-class}__dropdown;
 $color-picker-handle-class: #{$color-picker-class}__handle;
-$color-picker-handle-width: 24px;
-$color-picker-handle-height: 20px;
+$color-picker-handle-width: 20px !default;
+$color-picker-handle-height: 20px !default;

@@ -9,6 +9,7 @@
             ]"
             trigger="custom"
             ref="dropdown"
+            placement="bottom-start"
             :dropdown-class="`${baseClass}__dropdown`"
             @on-menu-click="handleMenuClick"
             @on-visible-change="handleVisibleChange">
@@ -80,9 +81,7 @@ export default {
   },
   watch: {
     value(nv) {
-      if (nv !== this.value) {
-        this.select(nv)
-      }
+      this.select(nv)
     }
   },
   methods: {
@@ -92,6 +91,8 @@ export default {
       if (target) {
         const { value, label } = target.componentInstance
         this.handleMenuClick({ value, label })
+      } else {
+        this.clear()
       }
     },
     handleMenuClick({ value, label }) {
@@ -107,12 +108,15 @@ export default {
     handleVisibleChange(visible) {
       this.focus = visible
     },
+    clear() {
+      this.handleMenuClick({ name: undefined, label: '' })
+    },
     handleIconClick() {
       if (this.disabled) {
         return
       }
       if (this.isClearable) {
-        this.handleMenuClick({ name: undefined, label: '' })
+        this.clear()
       } else {
         this.handleFocus()
       }

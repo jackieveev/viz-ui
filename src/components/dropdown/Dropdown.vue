@@ -56,6 +56,7 @@ export default {
         this.$emit('on-visible-change', value)
         // menu的位置可能不对，显示时update一下
         if (value) {
+          this.menuDOM.firstChild.style.width = getComputedStyle(this.refDOM, false).width
           this.popper.update()
         }
       }

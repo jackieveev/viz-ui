@@ -1,9 +1,9 @@
 <template>
-  <div :class="[`${baseClass}-wrapper`, dropdown_context.dropdownClass]"
+  <div :class="[`${baseClass}-wrapper`]"
       v-show="show"
       v-click-outside="handleClickOutside">
     <transition name="fade-y">
-      <div :class="[baseClass]"
+      <div :class="[baseClass, dropdown_context.dropdownClass]"
           v-show="show"
           @click="handleItemClick">
         <slot></slot>

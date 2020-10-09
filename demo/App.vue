@@ -55,7 +55,7 @@
       tooltip
     </viz-tooltip>
     <br/><br/>
-    <viz-tooltip content="stupid 😂2222" placement="right-start">
+    <viz-tooltip content="stupid 😂2222saldfalsdfjlasflasdfj" placement="bottom">
       tooltip2
     </viz-tooltip>
     <br/><br/><br/>
@@ -86,6 +86,19 @@
       <viz-option value="10" label="芜湖"></viz-option>
       <viz-option value="12" label="春夏秋冬"></viz-option>
     </viz-select>
+    <viz-select v-model="test9" clearable style="width: 120px">
+      <viz-option value="1" label="蒸羊羔"></viz-option>
+      <viz-option value="2" label="蒸熊掌"></viz-option>
+      <viz-option value="3" label="当红辣子鸡"></viz-option>
+      <viz-option value="4" label="清蒸石斑鱼"></viz-option>
+      <viz-option value="5" label="波士顿龙虾"></viz-option>
+      <viz-option value="6" label="白饭"></viz-option>
+      <viz-option value="7" label="阿娇"></viz-option>
+      <viz-option value="8" label="外婆桥"></viz-option>
+      <viz-option value="9" label="这些年来"></viz-option>
+      <viz-option value="10" label="芜湖"></viz-option>
+      <viz-option value="12" label="春夏秋冬"></viz-option>
+    </viz-select>
     <br/><br/><br/>
     <viz-slider style="width: 300px;" v-model="test10"></viz-slider>
     <br/><br/><br/>
@@ -93,6 +106,7 @@
     <br/><br/>
     <viz-switch v-model="test11"></viz-switch> <viz-switch v-model="test11" disabled></viz-switch>
     <br/><br/>
+    <viz-color-picker></viz-color-picker>
   </div>
 </template>
 

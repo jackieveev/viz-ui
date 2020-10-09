@@ -1,7 +1,11 @@
 <template>
   <dropdown :class="[baseClass]"
-            trigger="click">
+            trigger="click"
+            :dropdown-class="`${baseClass}__dropdown`">
     <div :class="[`${baseClass}__handle`]"></div>
+    <dropdown-menu slot="menu">
+      sadlfkjaslfkd
+    </dropdown-menu>
   </dropdown>
 </template>
 
@@ -12,7 +16,8 @@ name = 'viz-color-picker'
 export default {
   name,
   components: {
-    Dropdown: Drop.Dropdown
+    Dropdown: Drop.Dropdown,
+    DropdownMenu: Drop.DropdownMenu
   },
   data() {
     return {
