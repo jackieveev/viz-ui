@@ -10,7 +10,7 @@
             trigger="custom"
             ref="dropdown"
             :dropdown-class="`${baseClass}__dropdown`"
-            @on-menu-select="handleMenuSelect"
+            @on-menu-click="handleMenuClick"
             @on-visible-change="handleVisibleChange">
     <div>
       <viz-input :placeholder="placeholder"
@@ -27,7 +27,9 @@
         @click="handleIconClick">
       </i>
     </div>
-    <slot slot="menu"></slot>
+    <dropdown-menu slot="menu" ref="menu">
+      <slot></slot>
+    </dropdown-menu>
   </dropdown>
 </template>
 
@@ -57,6 +59,12 @@ export default {
   components: {
     VizInput,
     Dropdown: Drop.Dropdown,
+    DropdownMenu: Drop.DropdownMenu
+  },
+  provide() {
+    return {
+      select_context: this
+    }
   },
   data() {
     return {
@@ -72,15 +80,25 @@ export default {
   },
   watch: {
     value(nv) {
-      this.$refs.dropdown.select(this.value)
+      if (nv !== this.value) {
+        this.select(nv)
+      }
     }
   },
   methods: {
-    handleMenuSelect({ name, label }) {
+    select(value) {
+      const target = this.$refs.menu.$slots.default.find((e) =>
+        e.componentInstance && e.componentInstance.value === value)
+      if (target) {
+        const { value, label } = target.componentInstance
+        this.handleMenuClick({ value, label })
+      }
+    },
+    handleMenuClick({ value, label }) {
       this.label = label
-      if (this.value !== name) {
-        this.$emit('input', name)
-        this.$emit('on-change', name)
+      if (this.value !== value) {
+        this.$emit('input', value)
+        this.$emit('on-change', value)
       }
     },
     handleFocus() {
@@ -94,14 +112,14 @@ export default {
         return
       }
       if (this.isClearable) {
-        this.handleMenuSelect({ name: undefined, label: '' })
+        this.handleMenuClick({ name: undefined, label: '' })
       } else {
         this.handleFocus()
       }
     }
   },
   mounted() {
-    this.$refs.dropdown.select(this.value)
+    this.select(this.value)
   }
 }
 </script>

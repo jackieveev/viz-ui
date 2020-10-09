@@ -31,6 +31,9 @@ export default {
         return ['hover', 'click', 'custom'].indexOf(e) !== -1
       }
     },
+    dropdownClass: {
+      type: String
+    }
   },
   provide() {
     return {
@@ -50,6 +53,7 @@ export default {
     toggle(value) {
       if (value !== this.showMenu) {
         this.showMenu = value
+        this.$emit('on-visible-change', value)
         // menu的位置可能不对，显示时update一下
         if (value) {
           this.popper.update()

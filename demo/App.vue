@@ -73,7 +73,7 @@
       切换
     </viz-button> -->
     <br/><br/>
-    <!-- <viz-select v-model="test9" clearable>
+    <viz-select v-model="test9" clearable>
       <viz-option value="1" label="蒸羊羔"></viz-option>
       <viz-option value="2" label="蒸熊掌"></viz-option>
       <viz-option value="3" label="当红辣子鸡"></viz-option>
@@ -85,7 +85,7 @@
       <viz-option value="9" label="这些年来"></viz-option>
       <viz-option value="10" label="芜湖"></viz-option>
       <viz-option value="12" label="春夏秋冬"></viz-option>
-    </viz-select> -->
+    </viz-select>
     <br/><br/><br/>
     <viz-slider style="width: 300px;" v-model="test10"></viz-slider>
     <br/><br/><br/>

@@ -1,10 +1,11 @@
 <template>
-  <div :class="[`${baseClass}-wrapper`]"
+  <div :class="[`${baseClass}-wrapper`, dropdown_context.dropdownClass]"
       v-show="show"
       v-click-outside="handleClickOutside">
     <transition name="fade-y">
       <div :class="[baseClass]"
-          v-show="show">
+          v-show="show"
+          @click="handleItemClick">
         <slot></slot>
       </div>
     </transition>
@@ -48,6 +49,14 @@ export default {
       // 如果不是ref或ref的子元素触发的则为outside click
       if (ev.target !== this.dropdown_context.refDOM && !this.contains(this.dropdown_context.refDOM, ev.target)) {
         // 关闭
+        this.dropdown_context.toggle(false)
+      }
+    },
+    handleItemClick(ev) {
+      const item = this.$slots.default.find((e) => this.contains(e.elm, ev.target))
+      if (item && item.tag) {
+        const { name } = item.componentInstance
+        this.dropdown_context.$emit('on-menu-click', name)
         this.dropdown_context.toggle(false)
       }
     }

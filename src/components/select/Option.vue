@@ -28,14 +28,18 @@ export default {
   components: {
     DropdownItem: Drop.DropdownItem
   },
+  inject: ['select_context'],
   computed: {
     // 在dropdown-menu中触发click时抛出的是name
     // 这里重新包装过组件，应该把name也补上
     name() {
-      return this.value
+      return {
+        value: this.value,
+        label: this.label
+      }
     },
     selected() {
-      return this.$parent.current === this.value
+      return this.select_context.value === this.value
     }
   },
   data() {
