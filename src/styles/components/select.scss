@@ -53,24 +53,26 @@
 
 .#{$select-dropdown-class} {
   width: $select-width;
+  padding: 5px 3px;
 
   .#{$option-class} {
     padding: $option-padding;
+    border-radius: $border-radius;
   }
   .#{$option-class}--selected {
     position: relative;
-    background-color: rgba(255, 255, 255, .15);
-    color: $primary-color;
-    &:after {
-      content: '';
-      position: absolute;
-      left: 8px;
-      top: 50%;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      transform: translateY(-50%);
-      background-color: $primary-color;
-    }
+    background-color: $primary-color;
+    color: $white-color;
+    // &:after {
+    //   content: '';
+    //   position: absolute;
+    //   left: 8px;
+    //   top: 50%;
+    //   width: 4px;
+    //   height: 4px;
+    //   border-radius: 50%;
+    //   transform: translateY(-50%);
+    //   background-color: $primary-color;
+    // }
   }
 }

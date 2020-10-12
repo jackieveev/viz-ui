@@ -106,7 +106,7 @@
     <br/><br/>
     <viz-switch v-model="test11"></viz-switch> <viz-switch v-model="test11" disabled></viz-switch>
     <br/><br/>
-    <viz-color-picker></viz-color-picker>
+    <viz-color-picker style="margin-left: 100px;"></viz-color-picker>
   </div>
 </template>
 

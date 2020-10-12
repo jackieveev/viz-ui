@@ -54,7 +54,7 @@ export default {
     },
     handleItemClick(ev) {
       const item = this.$slots.default.find((e) => this.contains(e.elm, ev.target))
-      if (item && item.tag) {
+      if (item && item.tag && item.componentInstance) {
         const { name } = item.componentInstance
         this.dropdown_context.$emit('on-menu-click', name)
         this.dropdown_context.toggle(false)
