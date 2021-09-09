@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "npx webpack-dev-server --open --color --config ./build/dev.js"
+    "dev": "npx webpack-dev-server --open --color --config ./build/dev.js",
+    "build": "npx webpack --color --config ./build/prod.js"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",

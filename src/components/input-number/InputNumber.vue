@@ -79,10 +79,13 @@ export default {
     }
   },
   watch: {
-    value(nv) {
-      if (nv !== this.displayValue) {
-        this.changeValue(nv)
-      }
+    value: {
+      handler(nv) {
+        if (nv !== this.displayValue) {
+          this.changeValue(nv)
+        }
+      },
+      immediate: true
     }
   },
   methods: {
@@ -143,9 +146,6 @@ export default {
     handleWindowMouseUp() {
       window.clearTimeout(this.timer)
     }
-  },
-  created() {
-    this.changeValue(this.value)
   },
   mounted() {
     window.addEventListener('mouseup', this.handleWindowMouseUp)

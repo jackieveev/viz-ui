@@ -58,18 +58,6 @@ export default {
           this.popper.update()
         }
       }
-    },
-    addBindings() {
-      if (this.disHover) {
-        this.vnode.show = this.value
-        return
-      }
-      this.handleMouseEnter = () => this.toggle(true)
-      this.handleMouseLeave = () => this.toggle(false)
-      this.$el.addEventListener('mouseenter', this.handleMouseEnter)
-      this.$el.addEventListener('mouseleave', this.handleMouseLeave)
-      this.vnode.$el.addEventListener('mouseenter', this.handleMouseEnter)
-      this.vnode.$el.addEventListener('mouseleave', this.handleMouseLeave)
     }
   },
   render(h) {
@@ -107,15 +95,25 @@ export default {
         options: { offset: [0, this.offset] }
       }
     })
-    this.addBindings()
-  },
-  beforeDestroy() {
-    this.$el.removeEventListener('mouseenter', this.handleMouseEnter)
-    this.$el.removeEventListener('mouseleave', this.handleMouseLeave)
-    this.vnode.$el.removeEventListener('mouseenter', this.handleMouseEnter)
-    this.vnode.$el.removeEventListener('mouseleave', this.handleMouseLeave)
-    this.popper.destroy()
-    this.vnode.$destroy()
+    if (this.disHover) {
+      this.vnode.show = this.value
+      return
+    }
+    const handleMouseEnter = () => this.toggle(true),
+          handleMouseLeave = () => this.toggle(false)
+    this.$el.addEventListener('mouseenter', handleMouseEnter)
+    this.$el.addEventListener('mouseleave', handleMouseLeave)
+    this.vnode.$el.addEventListener('mouseenter', handleMouseEnter)
+    this.vnode.$el.addEventListener('mouseleave', handleMouseLeave)
+
+    this.$once('hook:beforeDestory', () => {
+      this.$el.removeEventListener('mouseenter', handleMouseEnter)
+      this.$el.removeEventListener('mouseleave', handleMouseLeave)
+      this.vnode.$el.removeEventListener('mouseenter', handleMouseEnter)
+      this.vnode.$el.removeEventListener('mouseleave', handleMouseLeave)
+      this.popper.destroy()
+      this.vnode.$destroy()
+    })
   }
 }
 </script>

@@ -3,10 +3,10 @@
     <viz-input type="text"
               prefix-icon="arrowup"
               prefix="$"
-              suffix-icon="arrowdown"
-              disabled
+              :disabled="test12"
               style="width: 300px;">
-    </viz-input>
+    </viz-input><br/><br/>
+    <viz-switch v-model="test12"></viz-switch> {{ test12 ? 'disabled' : 'enabled' }}
     <br/><br/>
     <viz-input prefix-icon="arrowup"
               prefix="$"
@@ -116,14 +116,15 @@ export default {
     return {
       test4: {},
       test: 'it\'s gone, it\'s all over baby.',
-      test1: 12345,
+      test1: '12345',
       test5: [1, 3],
       test6: '123',
       test7: '奇洛李维斯回信',
       test8: true,
       test9: '9',
       test10: 30,
-      test11: true
+      test11: true,
+      test12: true
     }
   },
   methods: {
